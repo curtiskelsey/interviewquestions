@@ -14,7 +14,7 @@ Feel free to ask us any questions you have while working on this.
 
 ## The Job to be Done
 
-As it is, the program only spits out a plain-text statement. Your job is to get the program to produce an HTML version of the customer statement in addition to the plain-text statement, with the following requirements:
+As it is, the program only spits out a plain-text statement. Your job is to get the program to produce an HTML version of the customer statement as well. The output of the plain-text statement must not change. The HTML statement's output must meet the following requirements:
 
 - The header must be an `H1` element with the customer's name in italics, with the language "Rentals for _Customer Name_".
 - Each movie rental listing must be on a new line with a colon after the movie name, like so:
