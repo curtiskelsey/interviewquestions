@@ -26,6 +26,7 @@ After you come up with your design, we will ask you to explain your solution, th
 - ease of implementation
 - maintainability (will this solution still work as the system grows and we add additional types of conflicts?)
 - infrastructure (what additional infrastructure requirements does this solution introduce?)
+- discussion of trade-offs for proposed approach(es)
 
 Good luck!
 
