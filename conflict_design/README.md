@@ -16,7 +16,7 @@ Currently, the server has to determine these (and any other) conflicts every tim
 4. server sends API response
 5. and finally, the visits appear on the user's calendar
 
-For large systems, step 3 quickly becomes a slow operation. Your assignment is to propose a design that alleviates the slowness on large systems. We are not looking for code; we are looking for a high-level discussion about a method of solving this problem that would result in a better experience for our users.
+For large systems, step 3 quickly becomes a slow operation. Your assignment is to propose a design that alleviates the slowness on large systems. We are not looking for code; we are looking for a high-level discussion about a method of solving this problem that would result in a better experience for our users. Feel free to propose multiple potential solutions, and describe the various trade-offs of each approach.
 
 After you come up with your design, we will ask you to explain your solution, then we will discuss the solution further. Your solution will be judged using the following criteria:
 
