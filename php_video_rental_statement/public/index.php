@@ -1,5 +1,16 @@
 <?php
 
+$autoloader = __DIR__ . '/../vendor/autoload.php';
+
+if (!file_exists($autoloader)) {
+    throw new RuntimeException(
+        'Please run "composer install" from the root of the project to setup autoloading'
+    );
+}
+
+/** @noinspection PhpIncludeInspection */
+require $autoloader;
+
 $codedir = '../src';
 
 require_once("$codedir/Movie.php");
