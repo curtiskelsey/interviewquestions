@@ -23,4 +23,13 @@ class PriceCodeServiceTest extends TestCase
             $this->assertInstanceOf(PriceCode::class, $priceCode);
         }
     }
+
+    public function testFetch(): void
+    {
+        $service = new PriceCodeService();
+
+        $priceCode = $service->fetch(PriceCode::REGULAR);
+
+        $this->assertInstanceOf(PriceCode::class, $priceCode);
+    }
 }

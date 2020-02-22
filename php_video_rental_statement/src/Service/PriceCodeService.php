@@ -13,6 +13,9 @@ class PriceCodeService
 {
     use ConfigAwareTrait;
 
+    /** @var PriceCode[] */
+    private $priceCodes = [];
+
     public function __construct()
     {
         $this->config = include __DIR__ . '/../../config/local.php';
@@ -23,14 +26,16 @@ class PriceCodeService
      */
     public function fetchAll(): array
     {
+        if ($this->priceCodes) {
+            return $this->priceCodes;
+        }
+
         if (!array_key_exists('priceCodes', $this->config)) {
             return [];
         }
 
-        $results = [];
-
         foreach ($this->config['priceCodes'] as $priceCodeConfig) {
-            $results[] = new PriceCode(
+            $this->priceCodes[$priceCodeConfig['id']] = new PriceCode(
                 $priceCodeConfig['id'],
                 $priceCodeConfig['name'],
                 $priceCodeConfig['priceMultiplier'],
@@ -38,6 +43,19 @@ class PriceCodeService
             );
         }
 
-        return $results;
+        return $this->priceCodes;
+    }
+
+    public function fetch(int $id): ?PriceCode
+    {
+        if (!$this->priceCodes) {
+            $this->fetchAll();
+        }
+
+        if (array_key_exists($id, $this->priceCodes)) {
+            return $this->priceCodes[$id];
+        }
+
+        return null;
     }
 }
