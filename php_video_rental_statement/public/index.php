@@ -1,5 +1,9 @@
 <?php
 
+use AxisCare\Customer;
+use AxisCare\Movie;
+use AxisCare\Rental;
+
 $autoloader = __DIR__ . '/../vendor/autoload.php';
 
 if (!file_exists($autoloader)) {
@@ -10,12 +14,6 @@ if (!file_exists($autoloader)) {
 
 /** @noinspection PhpIncludeInspection */
 require $autoloader;
-
-$codedir = '../src';
-
-require_once("$codedir/Movie.php");
-require_once("$codedir/Rental.php");
-require_once("$codedir/Customer.php");
 
 $prognosisNegative = new Movie("Prognosis Negative", Movie::NEW_RELEASE);
 $sackLunch = new Movie("Sack Lunch", Movie::CHILDRENS);

@@ -1,5 +1,7 @@
 <?php
 
+namespace AxisCare;
+
 class Movie
 {
     const CHILDRENS = 2;

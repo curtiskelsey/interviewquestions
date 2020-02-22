@@ -1,5 +1,7 @@
 <?php
 
+namespace AxisCare;
+
 class Customer
 {
     private $name;

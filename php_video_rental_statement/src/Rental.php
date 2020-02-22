@@ -1,5 +1,7 @@
 <?php
 
+namespace AxisCare;
+
 class Rental
 {
     private $movie;
