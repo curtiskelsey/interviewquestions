@@ -5,20 +5,23 @@ return [
         [
             'id' => 0,
             'name' => 'Regular',
-            'priceMultiplier' => 1,
-            'daysRentedThreshold' => 1,
+            'priceMultiplier' => 1.5,
+            'daysRentedThreshold' => 2,
+            'flatRate' => 2,
         ],
         [
             'id' => 1,
             'name' => 'New Release',
-            'priceMultiplier' => 1,
-            'daysRentedThreshold' => 1,
+            'priceMultiplier' => 3,
+            'daysRentedThreshold' => 0,
+            'flatRate' => 0,
         ],
         [
             'id' => 2,
             'name' => 'Childrens',
-            'priceMultiplier' => 1,
-            'daysRentedThreshold' => 1,
+            'priceMultiplier' => 1.5,
+            'daysRentedThreshold' => 3,
+            'flatRate' => 1.5,
         ],
     ]
 ];

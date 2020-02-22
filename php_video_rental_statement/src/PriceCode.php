@@ -19,18 +19,22 @@ class PriceCode
     /** @var string */
     private $name;
 
-    /** @var int */
+    /** @var float */
     private $priceMultiplier = 1;
 
     /** @var int */
     private $daysRentedThreshold = 1;
 
-    public function __construct(int $id, string $name, int $priceMultiplier = 1, int $daysRentedThreshold = 1)
+    /** @var float  */
+    private $flatRate = 0;
+
+    public function __construct(int $id, string $name, float $priceMultiplier = 1, int $daysRentedThreshold = 1, float $flatRate = 0)
     {
         $this->id = $id;
         $this->name = $name;
         $this->daysRentedThreshold = $daysRentedThreshold;
         $this->priceMultiplier = $priceMultiplier;
+        $this->flatRate = $flatRate;
     }
 
     /**
@@ -66,17 +70,17 @@ class PriceCode
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPriceMultiplier(): int
+    public function getPriceMultiplier(): float
     {
         return $this->priceMultiplier;
     }
 
     /**
-     * @param int $priceMultiplier
+     * @param float $priceMultiplier
      */
-    public function setPriceMultiplier(int $priceMultiplier): void
+    public function setPriceMultiplier(float $priceMultiplier): void
     {
         $this->priceMultiplier = $priceMultiplier;
     }
@@ -95,5 +99,21 @@ class PriceCode
     public function setDaysRentedThreshold(int $daysRentedThreshold): void
     {
         $this->daysRentedThreshold = $daysRentedThreshold;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFlatRate(): float
+    {
+        return $this->flatRate;
+    }
+
+    /**
+     * @param float $flatRate
+     */
+    public function setFlatRate(float $flatRate): void
+    {
+        $this->flatRate = $flatRate;
     }
 }

@@ -39,7 +39,8 @@ class PriceCodeService
                 $priceCodeConfig['id'],
                 $priceCodeConfig['name'],
                 $priceCodeConfig['priceMultiplier'],
-                $priceCodeConfig['daysRentedThreshold']
+                $priceCodeConfig['daysRentedThreshold'],
+                $priceCodeConfig['flatRate']
             );
         }
 

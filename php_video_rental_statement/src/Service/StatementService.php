@@ -5,6 +5,7 @@ namespace AxisCare\Service;
 
 use AxisCare\Customer;
 use AxisCare\PriceCode;
+use AxisCare\Rental;
 
 /**
  * Class StatementService
@@ -22,6 +23,24 @@ class StatementService
         $this->priceCodeService = $priceCodeService;
     }
 
+    public function getRentalAmount(Rental $rental): float
+    {
+        $movie = $rental->getMovie();
+        $priceCode = $movie->getPriceCode();
+
+        $amount = $priceCode->getFlatRate();
+
+        $chargeableDays = $rental->getDaysRented() - $priceCode->getDaysRentedThreshold();
+
+        if ($chargeableDays < 0) {
+            $chargeableDays = 0;
+        }
+
+        $amount += ($chargeableDays * $priceCode->getPriceMultiplier());
+
+        return $amount;
+    }
+
     public function generate(Customer $customer, int $type = self::PLAINTEXT_TYPE): string
     {
         $totalAmount = 0;
@@ -30,30 +49,17 @@ class StatementService
 
         // determine amounts for each line
         foreach ($customer->getRentals() as $rental) {
-            $thisAmount = 0;
-
-            switch ($rental->getMovie()->getPriceCode()->getId()) {
-                case PriceCode::REGULAR:
-                    $thisAmount += 2;
-                    if($rental->getDaysRented() > 2)
-                        $thisAmount += ($rental->getDaysRented() - 2) * 1.5;
-                    break;
-                case PriceCode::NEW_RELEASE:
-                    $thisAmount += $rental->getDaysRented() * 3;
-                    break;
-                case PriceCode::CHILDRENS:
-                    $thisAmount += 1.5;
-                    if($rental->getDaysRented() > 3)
-                        $thisAmount += ($rental->getDaysRented() - 3) *1.5;
-                    break;
-            }
+            $thisAmount = $this->getRentalAmount($rental);
 
             // add frequent renter points
             $frequentRenterPoints++;
 
             // add bonus for a two day new release rental
-            if (($rental->getMovie()->getPriceCode()->getId() == PriceCode::NEW_RELEASE) &&
-                $rental->getDaysRented() > 1) $frequentRenterPoints++;
+            if ($rental->getMovie()->getPriceCode()->getId() === PriceCode::NEW_RELEASE
+                && $rental->getDaysRented() > 1
+            ) {
+                $frequentRenterPoints++;
+            }
 
             // show figures for this rental
             $result .= "\t" . $rental->getMovie()->getTitle() . "\t" .
