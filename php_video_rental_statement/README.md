@@ -1,6 +1,24 @@
 # Customer Statement for a Video Rental Store
 
-Requires PHP 7.1+
+## Requirements
+- PHP 7.1+
+- [composer](https://getcomposer.org/)
+
+## Setup
+Copy the distributable config file (`config/local.php.dist`) to 
+
+`config/local.php`
+
+then run
+
+`php composer.phar install`
+
+## Tests
+Run 
+
+`./vendor/bin/phpunit`
+
+from the root of the project to execute all tests.
 
 ## Overview
 
