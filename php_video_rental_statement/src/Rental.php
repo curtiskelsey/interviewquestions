@@ -4,7 +4,10 @@ namespace AxisCare;
 
 class Rental
 {
+    /** @var Movie  */
     private $movie;
+
+    /** @var int  */
     private $daysRented;
 
     public function __construct(Movie $movie, int $daysRented)

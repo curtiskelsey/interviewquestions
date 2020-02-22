@@ -4,17 +4,29 @@ namespace AxisCare;
 
 class Customer
 {
+    /** @var string */
     private $name;
-    private $rentals = array();
+
+    /** @var Rental[]  */
+    private $rentals = [];
 
     public function __construct(string $name)
     {
         $this->name = $name;
     }
 
-    public function addRental(Rental $rental)
+    public function addRental(Rental $rental): self
     {
         array_push($this->rentals, $rental);
+        return $this;
+    }
+
+    /**
+     * @return Rental[]
+     */
+    public function getRentals(): array
+    {
+        return $this->rentals;
     }
 
     public function getName(): string

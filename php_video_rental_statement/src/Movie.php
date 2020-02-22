@@ -4,11 +4,14 @@ namespace AxisCare;
 
 class Movie
 {
-    const CHILDRENS = 2;
-    const REGULAR = 0;
-    const NEW_RELEASE = 1;
+    public const CHILDRENS = 2;
+    public const REGULAR = 0;
+    public const NEW_RELEASE = 1;
 
+    /** @var string string */
     private $title;
+
+    /** @var int */
     private $priceCode;
 
     public function __construct(string $title, int $priceCode)
