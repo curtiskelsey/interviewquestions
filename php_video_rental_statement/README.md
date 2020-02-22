@@ -13,6 +13,11 @@ then run
 
 `php composer.phar install`
 
+## Usage
+
+To use the statement, go to the index.php page in a web browser. To switch from plaintext to html, provide 
+`?format=html` on the end of the url.
+
 ## Tests
 Run 
 
