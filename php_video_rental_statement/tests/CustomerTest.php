@@ -5,6 +5,7 @@ namespace AxisCareTest;
 
 use AxisCare\Customer;
 use AxisCare\Movie;
+use AxisCare\PriceCode;
 use AxisCare\Rental;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +26,7 @@ class CustomerTest extends TestCase
     {
         $customer = new Customer('name');
         $rental = new Rental(
-            new Movie('title', Movie::REGULAR),
+            new Movie('title', PriceCode::REGULAR),
             1
         );
 
@@ -38,7 +39,7 @@ class CustomerTest extends TestCase
     {
         $customer = new Customer('name');
         $rental = new Rental(
-            new Movie('title', Movie::REGULAR),
+            new Movie('title', PriceCode::REGULAR),
             1
         );
 

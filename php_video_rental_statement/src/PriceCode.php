@@ -9,16 +9,20 @@ namespace AxisCare;
  */
 class PriceCode
 {
+    public const CHILDRENS = 2;
+    public const REGULAR = 0;
+    public const NEW_RELEASE = 1;
+
     /** @var int */
     private $id;
 
     /** @var string */
     private $name;
 
-    /** @var int  */
+    /** @var int */
     private $priceMultiplier = 1;
 
-    /** @var int  */
+    /** @var int */
     private $daysRentedThreshold = 1;
 
     public function __construct(int $id, string $name, int $priceMultiplier = 1, int $daysRentedThreshold = 1)

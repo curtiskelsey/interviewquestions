@@ -44,16 +44,16 @@ class Customer
         foreach ($this->rentals as $rental) {
             $thisAmount = 0;
 
-            switch ($rental->getMovie()->getPriceCode()) {
-                case Movie::REGULAR:
+            switch ($rental->getMovie()->getPriceCode()->getId()) {
+                case PriceCode::REGULAR:
                     $thisAmount += 2;
                     if($rental->getDaysRented() > 2)
                         $thisAmount += ($rental->getDaysRented() - 2) * 1.5;
                     break;
-                case Movie::NEW_RELEASE:
+                case PriceCode::NEW_RELEASE:
                     $thisAmount += $rental->getDaysRented() * 3;
                     break;
-                case Movie::CHILDRENS:
+                case PriceCode::CHILDRENS:
                     $thisAmount += 1.5;
                     if($rental->getDaysRented() > 3)
                         $thisAmount += ($rental->getDaysRented() - 3) *1.5;
@@ -64,7 +64,7 @@ class Customer
             $frequentRenterPoints++;
 
             // add bonus for a two day new release rental
-            if (($rental->getMovie()->getPriceCode() == Movie::NEW_RELEASE) &&
+            if (($rental->getMovie()->getPriceCode()->getId() == PriceCode::NEW_RELEASE) &&
                     $rental->getDaysRented() > 1) $frequentRenterPoints++;
 
             // show figures for this rental

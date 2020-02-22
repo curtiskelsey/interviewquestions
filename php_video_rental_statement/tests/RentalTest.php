@@ -4,6 +4,7 @@
 namespace AxisCareTest;
 
 use AxisCare\Movie;
+use AxisCare\PriceCode;
 use AxisCare\Rental;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class RentalTest extends TestCase
     public function testConstruct()
     {
         $rental = new Rental(
-            new Movie('title', Movie::REGULAR),
+            new Movie('title', PriceCode::REGULAR),
             1
         );
 
