@@ -2,7 +2,10 @@
 
 use AxisCare\Customer;
 use AxisCare\Movie;
+use AxisCare\PriceCode;
 use AxisCare\Rental;
+use AxisCare\Service\PriceCodeService;
+use AxisCare\Service\StatementService;
 
 $autoloader = __DIR__ . '/../vendor/autoload.php';
 
@@ -15,11 +18,14 @@ if (!file_exists($autoloader)) {
 /** @noinspection PhpIncludeInspection */
 require $autoloader;
 
-$prognosisNegative = new Movie("Prognosis Negative", Movie::NEW_RELEASE);
-$sackLunch = new Movie("Sack Lunch", Movie::CHILDRENS);
-$painAndYearning = new Movie("The Pain and the Yearning", Movie::REGULAR);
+$priceCodeService = new PriceCodeService();
+$statementService = new StatementService($priceCodeService);
 
-$customer = new Customer("Susan Ross");
+$prognosisNegative = new Movie('Prognosis Negative', $priceCodeService->fetch(PriceCode::REGULAR));
+$sackLunch = new Movie('Sack Lunch', $priceCodeService->fetch(PriceCode::CHILDRENS));
+$painAndYearning = new Movie('The Pain and the Yearning', $priceCodeService->fetch(PriceCode::NEW_RELEASE));
+
+$customer = new Customer('Susan Ross');
 $customer->addRental(
   new Rental($prognosisNegative, 3)
 );
@@ -30,7 +36,7 @@ $customer->addRental(
   new Rental($sackLunch, 1)
 );
 
-$statement = $customer->statement();
+$statement = $statementService->generate($customer);
 
 echo '<pre>';
 echo $statement;

@@ -7,21 +7,21 @@ class Movie
     /** @var string string */
     private $title;
 
-    /** @var int */
+    /** @var PriceCode */
     private $priceCode;
 
-    public function __construct(string $title, int $priceCode)
+    public function __construct(string $title, PriceCode $priceCode)
     {
         $this->title = $title;
         $this->priceCode = $priceCode;
     }
 
-    public function getPriceCode(): int
+    public function getPriceCode(): PriceCode
     {
         return $this->priceCode;
     }
 
-    public function setPriceCode(int $priceCode)
+    public function setPriceCode(PriceCode $priceCode)
     {
         $this->priceCode = $priceCode;
     }

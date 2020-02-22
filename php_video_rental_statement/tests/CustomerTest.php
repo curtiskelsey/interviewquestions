@@ -7,6 +7,7 @@ use AxisCare\Customer;
 use AxisCare\Movie;
 use AxisCare\PriceCode;
 use AxisCare\Rental;
+use AxisCare\Service\PriceCodeService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,30 +25,19 @@ class CustomerTest extends TestCase
 
     public function testAddRental(): void
     {
+        $priceCodeService = new PriceCodeService();
+
         $customer = new Customer('name');
         $rental = new Rental(
-            new Movie('title', PriceCode::REGULAR),
+            new Movie(
+                'title',
+                $priceCodeService->fetch(PriceCode::REGULAR)
+            ),
             1
         );
 
         $customer->addRental($rental);
 
         $this->assertContains($rental, $customer->getRentals());
-    }
-
-    public function testStatement(): void
-    {
-        $customer = new Customer('name');
-        $rental = new Rental(
-            new Movie('title', PriceCode::REGULAR),
-            1
-        );
-
-        $customer->addRental($rental);
-
-        $statement = $customer->statement();
-
-        $this->markTestIncomplete('Validate the statement string');
-        // TODO validate the statement string
     }
 }
