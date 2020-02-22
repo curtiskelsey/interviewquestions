@@ -21,10 +21,12 @@ class PriceCode
     /** @var int  */
     private $daysRentedThreshold = 1;
 
-    public function __construct(int $id, string $name)
+    public function __construct(int $id, string $name, int $priceMultiplier = 1, int $daysRentedThreshold = 1)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->daysRentedThreshold = $daysRentedThreshold;
+        $this->priceMultiplier = $priceMultiplier;
     }
 
     /**
