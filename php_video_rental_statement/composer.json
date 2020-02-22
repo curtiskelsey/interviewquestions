@@ -1,0 +1,15 @@
+{
+    "name": "axis-care/video-rental",
+    "authors": [
+        {
+            "name": "Curtis Kelsey",
+            "email": "curtis@lodgable.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "AxisCare\\": "src/"
+        }
+    }
+}
