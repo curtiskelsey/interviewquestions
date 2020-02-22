@@ -31,8 +31,7 @@ class CustomerTest extends TestCase
 
         $customer->addRental($rental);
 
-        $this->markTestIncomplete('Need to be able to read the customer rentals to assert a rental was added');
-        // TODO assert added
+        $this->assertContains($rental, $customer->getRentals());
     }
 
     public function testStatement(): void
