@@ -43,6 +43,10 @@ class StatementService
 
     public function generate(Customer $customer, int $type = self::PLAINTEXT_TYPE): string
     {
+        if ($type === self::HTML_TYPE) {
+            return $this->generateHtml($customer);
+        }
+
         $totalAmount = 0;
         $frequentRenterPoints = 0;
         $result = "Rental Record for " . $customer->getName() . "\n";
@@ -71,6 +75,56 @@ class StatementService
         $result .= "Amount owed is " . $totalAmount . "\n";
         $result .= "You earned " . $frequentRenterPoints .
             " frequent renter points";
+
+        return $result;
+    }
+
+    private function generateHtml(Customer $customer): string
+    {
+        $totalAmount = 0;
+        $frequentRenterPoints = 0;
+        $result = sprintf(
+            '<h1 class="header">Rentals for <span class="customer-name">%s</span></h1>',
+            $customer->getName()
+        );
+
+        $result .= '<ul class="rental-list">';
+
+        // determine amounts for each line
+        foreach ($customer->getRentals() as $rental) {
+            $thisAmount = $this->getRentalAmount($rental);
+
+            // add frequent renter points
+            $frequentRenterPoints++;
+
+            // add bonus for a two day new release rental
+            if ($rental->getMovie()->getPriceCode()->getId() === PriceCode::NEW_RELEASE
+                && $rental->getDaysRented() > 1
+            ) {
+                $frequentRenterPoints++;
+            }
+
+            $result .= sprintf(
+                '<li class="rental-item">%s: %s</li>',
+                $rental->getMovie()->getTitle(),
+                $thisAmount
+            );
+
+            $totalAmount += $thisAmount;
+        }
+
+        $result .= '</ul>';
+
+        // add footer lines
+        $result .= sprintf(
+            '<p>Amount owed is <span class="total">%s</span></p>',
+            $totalAmount
+        );
+
+        $result .= sprintf(
+            '<p>You earned <span class="total">%s</span> frequent renter points</p>',
+            $frequentRenterPoints
+        );
 
         return $result;
     }

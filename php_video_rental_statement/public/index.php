@@ -18,6 +18,7 @@ if (!file_exists($autoloader)) {
 /** @noinspection PhpIncludeInspection */
 require $autoloader;
 
+$format = $_GET['format'] ?? null;
 $priceCodeService = new PriceCodeService();
 $statementService = new StatementService($priceCodeService);
 
@@ -35,6 +36,12 @@ $customer->addRental(
 $customer->addRental(
   new Rental($sackLunch, 1)
 );
+
+if ($format === 'html') {
+    ?><link rel="stylesheet" href="assets/css/index.css" type="text/css"><?php
+    echo $statementService->generate($customer, StatementService::HTML_TYPE);
+    return;
+}
 
 $statement = $statementService->generate($customer);
 

@@ -1,0 +1,15 @@
+.header {
+
+}
+
+.customer-name, .total {
+    font-style: italic;
+}
+
+.rental-list {
+    list-style: none;
+}
+
+.rental-item {
+
+}

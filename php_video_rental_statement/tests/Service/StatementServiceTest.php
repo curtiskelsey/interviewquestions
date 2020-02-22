@@ -43,4 +43,28 @@ You earned 1 frequent renter points',
             $statement
         );
     }
+
+    public function testHtmlStatement(): void
+    {
+        $priceCodeService = new PriceCodeService();
+        $service = new StatementService($priceCodeService);
+
+        $customer = new Customer('name');
+        $rental = new Rental(
+            new Movie(
+                'title',
+                $priceCodeService->fetch(PriceCode::REGULAR)
+            ),
+            1
+        );
+
+        $customer->addRental($rental);
+
+        $statement = $service->generate($customer, StatementService::HTML_TYPE);
+
+        $this->assertStringContainsString(
+            '<h1>',
+            $statement
+        );
+    }
 }
