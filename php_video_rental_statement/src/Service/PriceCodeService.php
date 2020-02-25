@@ -36,11 +36,7 @@ class PriceCodeService
 
         foreach ($this->config['priceCodes'] as $priceCodeConfig) {
             $this->priceCodes[$priceCodeConfig['id']] = new PriceCode(
-                $priceCodeConfig['id'],
-                $priceCodeConfig['name'],
-                $priceCodeConfig['priceMultiplier'],
-                $priceCodeConfig['daysRentedThreshold'],
-                $priceCodeConfig['flatRate']
+                $priceCodeConfig
             );
         }
 

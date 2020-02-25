@@ -9,6 +9,8 @@ namespace AxisCare;
  */
 class PriceCode
 {
+    use ArraySerializableTrait;
+
     public const CHILDRENS = 2;
     public const REGULAR = 0;
     public const NEW_RELEASE = 1;
@@ -25,16 +27,20 @@ class PriceCode
     /** @var int */
     private $daysRentedThreshold = 1;
 
+    /** @var int  */
+    private $bonusFrequentRenterPoints = 0;
+
+    /** @var int  */
+    private $bonusFrequentRenterPointsThreshold = 1;
+
     /** @var float  */
     private $flatRate = 0;
 
-    public function __construct(int $id, string $name, float $priceMultiplier = 1, int $daysRentedThreshold = 1, float $flatRate = 0)
+    public function __construct(array $data = null)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->daysRentedThreshold = $daysRentedThreshold;
-        $this->priceMultiplier = $priceMultiplier;
-        $this->flatRate = $flatRate;
+        if ($data) {
+            $this->fromArray($data);
+        }
     }
 
     /**
@@ -115,5 +121,41 @@ class PriceCode
     public function setFlatRate(float $flatRate): void
     {
         $this->flatRate = $flatRate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBonusFrequentRenterPoints(): int
+    {
+        return $this->bonusFrequentRenterPoints;
+    }
+
+    /**
+     * @param int $bonusFrequentRenterPoints
+     * @return $this
+     */
+    public function setBonusFrequentRenterPoints(int $bonusFrequentRenterPoints): self
+    {
+        $this->bonusFrequentRenterPoints = $bonusFrequentRenterPoints;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBonusFrequentRenterPointsThreshold(): int
+    {
+        return $this->bonusFrequentRenterPointsThreshold;
+    }
+
+    /**
+     * @param int $bonusFrequentRenterPointsThreshold
+     * @return $this
+     */
+    public function setBonusFrequentRenterPointsThreshold(int $bonusFrequentRenterPointsThreshold): self
+    {
+        $this->bonusFrequentRenterPointsThreshold = $bonusFrequentRenterPointsThreshold;
+        return $this;
     }
 }
