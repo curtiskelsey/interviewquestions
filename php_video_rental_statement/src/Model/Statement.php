@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AxisCare;
+namespace AxisCare\Model;
 
 /**
  * Class Statement

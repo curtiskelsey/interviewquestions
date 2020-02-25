@@ -3,8 +3,8 @@
 
 namespace AxisCare\Service;
 
-use AxisCare\Customer;
-use AxisCare\Statement;
+use AxisCare\Model\Customer;
+use AxisCare\Model\Statement;
 
 /**
  * Class StatementService

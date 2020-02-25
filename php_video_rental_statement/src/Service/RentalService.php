@@ -3,7 +3,7 @@
 
 namespace AxisCare\Service;
 
-use AxisCare\Rental;
+use AxisCare\Model\Rental;
 
 /**
  * Class RentalService

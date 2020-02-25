@@ -1,7 +1,9 @@
 <?php
 
 
-namespace AxisCare;
+namespace AxisCare\Model;
+
+use AxisCare\ArraySerializableTrait;
 
 /**
  * Class PriceCode

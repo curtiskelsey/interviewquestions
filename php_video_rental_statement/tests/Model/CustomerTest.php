@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AxisCareTest;
+namespace AxisCareTest\Model;
 
-use AxisCare\Customer;
-use AxisCare\Movie;
-use AxisCare\PriceCode;
-use AxisCare\Rental;
+use AxisCare\Model\Customer;
+use AxisCare\Model\Movie;
+use AxisCare\Model\PriceCode;
+use AxisCare\Model\Rental;
 use AxisCare\Service\PriceCodeService;
 use PHPUnit\Framework\TestCase;
 

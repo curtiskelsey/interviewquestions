@@ -1,6 +1,6 @@
 <?php
 
-namespace AxisCare;
+namespace AxisCare\Model;
 
 class Rental
 {

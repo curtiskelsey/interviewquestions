@@ -3,7 +3,7 @@
 
 namespace AxisCare\Service;
 
-use AxisCare\PriceCode;
+use AxisCare\Model\PriceCode;
 
 /**
  * Class PriceCodeService

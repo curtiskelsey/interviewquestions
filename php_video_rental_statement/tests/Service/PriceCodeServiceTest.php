@@ -3,7 +3,7 @@
 
 namespace AxisCareTest;
 
-use AxisCare\PriceCode;
+use AxisCare\Model\PriceCode;
 use AxisCare\Service\PriceCodeService;
 use PHPUnit\Framework\TestCase;
 
