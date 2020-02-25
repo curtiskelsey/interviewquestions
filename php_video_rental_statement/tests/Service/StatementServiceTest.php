@@ -8,6 +8,7 @@ use AxisCare\Movie;
 use AxisCare\PriceCode;
 use AxisCare\Rental;
 use AxisCare\Service\PriceCodeService;
+use AxisCare\Service\RentalService;
 use AxisCare\Service\StatementService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,7 @@ class StatementServiceTest extends TestCase
     public function testPlaintextStatement(): void
     {
         $priceCodeService = new PriceCodeService();
-        $service = new StatementService($priceCodeService);
+        $service = new StatementService($priceCodeService, new RentalService());
 
         $customer = new Customer('name');
         $rental = new Rental(
@@ -40,14 +41,14 @@ class StatementServiceTest extends TestCase
 	title	2
 Amount owed is 2
 You earned 1 frequent renter points',
-            $statement
+            $service->render($statement)
         );
     }
 
     public function testHtmlStatement(): void
     {
         $priceCodeService = new PriceCodeService();
-        $service = new StatementService($priceCodeService);
+        $service = new StatementService($priceCodeService, new RentalService());
 
         $customer = new Customer('name');
         $rental = new Rental(
@@ -60,11 +61,11 @@ You earned 1 frequent renter points',
 
         $customer->addRental($rental);
 
-        $statement = $service->generate($customer, StatementService::HTML_TYPE);
+        $statement = $service->generate($customer);
 
         $this->assertStringContainsString(
-            '<h1>',
-            $statement
+            '<h1',
+            $service->render($statement, StatementService::HTML_FORMAT)
         );
     }
 }

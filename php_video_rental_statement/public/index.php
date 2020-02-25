@@ -5,6 +5,7 @@ use AxisCare\Movie;
 use AxisCare\PriceCode;
 use AxisCare\Rental;
 use AxisCare\Service\PriceCodeService;
+use AxisCare\Service\RentalService;
 use AxisCare\Service\StatementService;
 
 $autoloader = __DIR__ . '/../vendor/autoload.php';
@@ -20,7 +21,7 @@ require $autoloader;
 
 $format = $_GET['format'] ?? null;
 $priceCodeService = new PriceCodeService();
-$statementService = new StatementService($priceCodeService);
+$statementService = new StatementService($priceCodeService, new RentalService());
 
 $prognosisNegative = new Movie('Prognosis Negative', $priceCodeService->fetch(PriceCode::REGULAR));
 $sackLunch = new Movie('Sack Lunch', $priceCodeService->fetch(PriceCode::CHILDRENS));
@@ -37,14 +38,14 @@ $customer->addRental(
   new Rental($sackLunch, 1)
 );
 
+$statement = $statementService->generate($customer);
+
 if ($format === 'html') {
     ?><link rel="stylesheet" href="assets/css/index.css" type="text/css"><?php
-    echo $statementService->generate($customer, StatementService::HTML_TYPE);
+    echo $statementService->render($statement, StatementService::HTML_FORMAT);
     return;
 }
 
-$statement = $statementService->generate($customer);
-
 echo '<pre>';
-echo $statement;
+echo $statementService->render($statement);
 echo '</pre>';

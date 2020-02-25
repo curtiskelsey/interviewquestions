@@ -4,8 +4,7 @@
 namespace AxisCare\Service;
 
 use AxisCare\Customer;
-use AxisCare\PriceCode;
-use AxisCare\Rental;
+use AxisCare\Statement;
 
 /**
  * Class StatementService
@@ -13,76 +12,116 @@ use AxisCare\Rental;
  */
 class StatementService
 {
-    use PriceCodeServiceAwareTrait;
+    use PriceCodeServiceAwareTrait,
+        RentalServiceAwareTrait;
 
-    public const PLAINTEXT_TYPE = 0;
-    public const HTML_TYPE = 1;
+    public const PLAINTEXT_FORMAT = 0;
+    public const HTML_FORMAT = 1;
 
-    public function __construct(PriceCodeService $priceCodeService)
+    public function __construct(PriceCodeService $priceCodeService, RentalService $rentalService)
     {
         $this->priceCodeService = $priceCodeService;
+        $this->rentalService = $rentalService;
     }
 
-    public function getRentalAmount(Rental $rental): float
+    /**
+     * Renders a given statement in the format provided. If no format is provided, it is rendered in plain text
+     *
+     * @param Statement $statement
+     * @param int $format
+     * @return string
+     */
+    public function render(Statement $statement, int $format = self::PLAINTEXT_FORMAT): string
     {
-        $movie = $rental->getMovie();
-        $priceCode = $movie->getPriceCode();
-
-        $amount = $priceCode->getFlatRate();
-
-        $chargeableDays = $rental->getDaysRented() - $priceCode->getDaysRentedThreshold();
-
-        if ($chargeableDays < 0) {
-            $chargeableDays = 0;
+        switch ($format) {
+            case self::HTML_FORMAT:
+                return $this->renderHtml($statement);
+                break;
+            default:
+                return $this->renderPlainText($statement);
+                break;
         }
-
-        $amount += ($chargeableDays * $priceCode->getPriceMultiplier());
-
-        return $amount;
     }
 
-    public function generate(Customer $customer, int $type = self::PLAINTEXT_TYPE): string
+    /**
+     * Given a customer, a statement is created and returned
+     *
+     * @param Customer $customer
+     * @return Statement
+     */
+    public function generate(Customer $customer): Statement
     {
-        if ($type === self::HTML_TYPE) {
-            return $this->generateHtml($customer);
-        }
-
-        $totalAmount = 0;
-        $frequentRenterPoints = 0;
-        $result = "Rental Record for " . $customer->getName() . "\n";
+        $statement = new Statement($customer);
 
         // determine amounts for each line
         foreach ($customer->getRentals() as $rental) {
-            $thisAmount = $this->getRentalAmount($rental);
+            $rentalAmount = $this->getRentalService()->getTotal($rental);
 
             // add frequent renter points
-            $frequentRenterPoints++;
+            $statement->addFrequentRenterPoints(1);
 
-            // add bonus for a two day new release rental
-            if ($rental->getMovie()->getPriceCode()->getId() === PriceCode::NEW_RELEASE
-                && $rental->getDaysRented() > 1
-            ) {
-                $frequentRenterPoints++;
+            $movie = $rental->getMovie();
+            $priceCode = $movie->getPriceCode();
+
+            // add bonus frequent renter points
+            if ($rental->getDaysRented() > $priceCode->getBonusFrequentRenterPointsThreshold()) {
+                $statement->addFrequentRenterPoints($priceCode->getBonusFrequentRenterPoints());
             }
 
-            // show figures for this rental
-            $result .= "\t" . $rental->getMovie()->getTitle() . "\t" .
-                $thisAmount . "\n";
-            $totalAmount += $thisAmount;
+            $statement->addLineItem(
+                $rental->getMovie()->getTitle(),
+                $rentalAmount
+            );
+
+            $statement->addToTotal($rentalAmount);
+        }
+
+        return $statement;
+    }
+
+    /**
+     * Given a statement, a plain text rendering of the statement is created and returned
+     *
+     * @param Statement $statement
+     * @return string
+     */
+    public function renderPlainText(Statement $statement): string
+    {
+        $customer = $statement->getCustomer();
+
+        $result = sprintf(
+            "Rental Record for %s\n",
+            $customer->getName()
+        );
+
+        foreach ($statement->getLineItems() as $text => $value) {
+            $result .= sprintf(
+                "\t%s\t%s\n",
+                $text,
+                number_format($value, 0)
+            );
         }
 
         // add footer lines
-        $result .= "Amount owed is " . $totalAmount . "\n";
-        $result .= "You earned " . $frequentRenterPoints .
-            " frequent renter points";
+        $result .= sprintf(
+            "Amount owed is %s\nYou earned %d frequent renter points",
+            number_format($statement->getTotal(), 0),
+            $statement->getFrequentRenterPoints()
+        );
 
         return $result;
     }
 
-    private function generateHtml(Customer $customer): string
+    /**
+     * Given a statement, a HTML rendering of the statement is created and returned
+     *
+     * @param Statement $statement
+     * @return string
+     */
+    private function renderHtml(Statement $statement): string
     {
-        $totalAmount = 0;
-        $frequentRenterPoints = 0;
+        $customer = $statement->getCustomer();
+
         $result = sprintf(
             '<h1 class="header">Rentals for <span class="customer-name">%s</span></h1>',
             $customer->getName()
@@ -90,40 +129,24 @@ class StatementService
 
         $result .= '<ul class="rental-list">';
 
-        // determine amounts for each line
-        foreach ($customer->getRentals() as $rental) {
-            $thisAmount = $this->getRentalAmount($rental);
-
-            // add frequent renter points
-            $frequentRenterPoints++;
-
-            // add bonus for a two day new release rental
-            if ($rental->getMovie()->getPriceCode()->getId() === PriceCode::NEW_RELEASE
-                && $rental->getDaysRented() > 1
-            ) {
-                $frequentRenterPoints++;
-            }
-
+        foreach ($statement->getLineItems() as $text => $value) {
             $result .= sprintf(
                 '<li class="rental-item">%s: %s</li>',
-                $rental->getMovie()->getTitle(),
-                $thisAmount
+                $text,
+                $value
             );
-
-            $totalAmount += $thisAmount;
         }
 
         $result .= '</ul>';
 
-        // add footer lines
         $result .= sprintf(
             '<p>Amount owed is <span class="total">%s</span></p>',
-            $totalAmount
+            $statement->getTotal()
         );
 
         $result .= sprintf(
             '<p>You earned <span class="total">%s</span> frequent renter points</p>',
-            $frequentRenterPoints
+            $statement->getFrequentRenterPoints()
         );
 
         return $result;
