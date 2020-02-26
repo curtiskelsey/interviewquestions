@@ -25,13 +25,15 @@ class StatementServiceTest extends TestCase
 
         $customer = new Customer('name');
         $rental = new Rental(
-            new Movie(
-                [
-                    'title' => 'title',
-                    'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
-                ]
-            ),
-            1
+            [
+                'movie' => new Movie(
+                    [
+                        'title' => 'title',
+                        'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+                    ]
+                ),
+                'daysRented' => 1
+            ]
         );
 
         $customer->addRental($rental);
@@ -54,13 +56,15 @@ You earned 1 frequent renter points',
 
         $customer = new Customer('name');
         $rental = new Rental(
-            new Movie(
-                [
-                    'title' => 'title',
-                    'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
-                ]
-            ),
-            1
+            [
+                'movie' => new Movie(
+                    [
+                        'title' => 'title',
+                        'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+                    ]
+                ),
+                'daysRented' => 1
+            ]
         );
 
         $customer->addRental($rental);

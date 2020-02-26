@@ -16,10 +16,11 @@ class Rental implements
     /** @var int  */
     private $daysRented;
 
-    public function __construct(Movie $movie, int $daysRented)
+    public function __construct($data = null)
     {
-        $this->movie = $movie;
-        $this->daysRented = $daysRented;
+        if (is_array($data)) {
+            $this->fromArray($data);
+        }
     }
 
     public function getDaysRented(): int

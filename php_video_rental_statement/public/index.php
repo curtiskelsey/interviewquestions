@@ -51,13 +51,13 @@ $customer = new Customer(
 );
 
 $customer->addRental(
-    new Rental($prognosisNegative, 3)
+    new Rental(['movie' => $prognosisNegative, 'daysRented' => 3])
 );
 $customer->addRental(
-    new Rental($painAndYearning, 1)
+    new Rental(['movie' => $painAndYearning, 'daysRented' => 1])
 );
 $customer->addRental(
-    new Rental($sackLunch, 1)
+    new Rental(['movie' => $sackLunch, 'daysRented' => 1])
 );
 
 $statement = $statementService->generate($customer);

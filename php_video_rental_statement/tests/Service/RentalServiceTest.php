@@ -20,19 +20,21 @@ class RentalServiceTest extends TestCase
         $service = new RentalService();
 
         $rental = new Rental(
-            new Movie(
-                [
-                    'title' => 'test',
-                    'priceCode' => new PriceCode(
-                        [
-                            'priceMultiplier' => 5,
-                            'daysRentedThreshold' => 1,
-                            'flatRate' => 2,
-                        ]
-                    )
-                ]
-            ),
-            3
+            [
+                'movie' => new Movie(
+                    [
+                        'title' => 'test',
+                        'priceCode' => new PriceCode(
+                            [
+                                'priceMultiplier' => 5,
+                                'daysRentedThreshold' => 1,
+                                'flatRate' => 2,
+                            ]
+                        )
+                    ]
+                ),
+                'daysRented' => 3
+            ]
         );
 
         $total = $service->getTotal($rental);

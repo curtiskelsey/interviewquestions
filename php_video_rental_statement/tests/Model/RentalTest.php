@@ -20,13 +20,15 @@ class RentalTest extends TestCase
         $priceCodeService = new PriceCodeService();
 
         $rental = new Rental(
-            new Movie(
-                [
-                    'title' => 'title',
-                    'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
-                ]
-            ),
-            1
+            [
+                'movie' => new Movie(
+                    [
+                        'title' => 'title',
+                        'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+                    ]
+                ),
+                'daysRented' => 1
+            ]
         );
 
         $this->assertInstanceOf(Rental::class, $rental);
