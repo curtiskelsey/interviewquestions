@@ -3,13 +3,14 @@
 
 namespace AxisCare\Service;
 
+use AxisCare\DataProviderInterface;
 use AxisCare\Model\PriceCode;
 
 /**
  * Class PriceCodeService
  * @package AxisCare
  */
-class PriceCodeService
+class PriceCodeService implements DataProviderInterface
 {
     use ConfigAwareTrait;
 
