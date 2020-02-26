@@ -14,8 +14,8 @@ class StatementService
 {
     use RentalServiceAwareTrait;
 
-    public const PLAINTEXT_FORMAT = 0;
-    public const HTML_FORMAT = 1;
+    public const PLAINTEXT_FORMAT = 'text';
+    public const HTML_FORMAT = 'html';
 
     public function __construct(RentalService $rentalService)
     {
@@ -26,10 +26,10 @@ class StatementService
      * Renders a given statement in the format provided. If no format is provided, it is rendered in plain text
      *
      * @param Statement $statement
-     * @param int $format
+     * @param string|null $format
      * @return string
      */
-    public function render(Statement $statement, int $format = self::PLAINTEXT_FORMAT): string
+    public function render(Statement $statement, ?string $format = null): string
     {
         switch ($format) {
             case self::HTML_FORMAT:
@@ -88,7 +88,7 @@ class StatementService
         $customer = $statement->getCustomer();
 
         $result = sprintf(
-            "Rental Record for %s\n",
+            "<pre>Rental Record for %s\n",
             $customer->getName()
         );
 
@@ -102,7 +102,7 @@ class StatementService
 
         // add footer lines
         $result .= sprintf(
-            "Amount owed is %s\nYou earned %d frequent renter points",
+            "Amount owed is %s\nYou earned %d frequent renter points</pre>",
             number_format($statement->getTotal(), 0),
             $statement->getFrequentRenterPoints()
         );
@@ -120,7 +120,9 @@ class StatementService
     {
         $customer = $statement->getCustomer();
 
-        $result = sprintf(
+        $result = '<link rel="stylesheet" href="assets/css/index.css" type="text/css">';
+
+        $result .= sprintf(
             '<h1 class="header">Rentals for <span class="customer-name">%s</span></h1>',
             $customer->getName()
         );
