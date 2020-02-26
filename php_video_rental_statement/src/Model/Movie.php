@@ -37,4 +37,14 @@ class Movie implements
     {
         return $this->title;
     }
+
+    /**
+     * @param string $title
+     * @return $this
+     */
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
 }
