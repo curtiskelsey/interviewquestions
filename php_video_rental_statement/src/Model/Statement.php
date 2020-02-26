@@ -3,12 +3,18 @@
 
 namespace AxisCare\Model;
 
+use AxisCare\ArraySerializableInterface;
+use AxisCare\ArraySerializableTrait;
+
 /**
  * Class Statement
  * @package AxisCare
  */
-class Statement
+class Statement implements
+    ArraySerializableInterface
 {
+    use ArraySerializableTrait;
+
     /**
      * @var float
      */
@@ -29,9 +35,15 @@ class Statement
      */
     private $customer;
 
-    public function __construct(Customer $customer)
+    public function __construct($data = null)
     {
-        $this->customer = $customer;
+        if ($data instanceof Customer) {
+            $this->customer = $data;
+        }
+
+        if (is_array($data)) {
+            $this->fromArray($data);
+        }
     }
 
     public function addToTotal(float $amount): self

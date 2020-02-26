@@ -3,13 +3,15 @@
 
 namespace AxisCare\Model;
 
+use AxisCare\ArraySerializableInterface;
 use AxisCare\ArraySerializableTrait;
 
 /**
  * Class PriceCode
  * @package AxisCare
  */
-class PriceCode
+class PriceCode implements
+    ArraySerializableInterface
 {
     use ArraySerializableTrait;
 

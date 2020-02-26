@@ -2,17 +2,29 @@
 
 namespace AxisCare\Model;
 
-class Customer
+use AxisCare\ArraySerializableInterface;
+use AxisCare\ArraySerializableTrait;
+
+class Customer implements
+    ArraySerializableInterface
 {
+    use ArraySerializableTrait;
+
     /** @var string */
     private $name;
 
     /** @var Rental[]  */
     private $rentals = [];
 
-    public function __construct(string $name)
+    public function __construct($data = null)
     {
-        $this->name = $name;
+        if (is_string($data)) {
+            $this->name = $data;
+        }
+
+        if (is_array($data)) {
+            $this->fromArray($data);
+        }
     }
 
     public function addRental(Rental $rental): self

@@ -2,8 +2,14 @@
 
 namespace AxisCare\Model;
 
-class Rental
+use AxisCare\ArraySerializableInterface;
+use AxisCare\ArraySerializableTrait;
+
+class Rental implements
+    ArraySerializableInterface
 {
+    use ArraySerializableTrait;
+
     /** @var Movie  */
     private $movie;
 

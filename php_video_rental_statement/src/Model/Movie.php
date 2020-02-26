@@ -2,8 +2,14 @@
 
 namespace AxisCare\Model;
 
-class Movie
+use AxisCare\ArraySerializableInterface;
+use AxisCare\ArraySerializableTrait;
+
+class Movie implements
+    ArraySerializableInterface
 {
+    use ArraySerializableTrait;
+
     /** @var string string */
     private $title;
 
