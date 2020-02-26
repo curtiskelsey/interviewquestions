@@ -21,7 +21,7 @@ require $autoloader;
 
 $format = $_GET['format'] ?? null;
 $priceCodeService = new PriceCodeService();
-$statementService = new StatementService($priceCodeService, new RentalService());
+$statementService = new StatementService(new RentalService());
 
 $prognosisNegative = new Movie(
     [

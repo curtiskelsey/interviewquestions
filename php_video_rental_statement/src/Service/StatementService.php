@@ -12,15 +12,13 @@ use AxisCare\Model\Statement;
  */
 class StatementService
 {
-    use PriceCodeServiceAwareTrait,
-        RentalServiceAwareTrait;
+    use RentalServiceAwareTrait;
 
     public const PLAINTEXT_FORMAT = 0;
     public const HTML_FORMAT = 1;
 
-    public function __construct(PriceCodeService $priceCodeService, RentalService $rentalService)
+    public function __construct(RentalService $rentalService)
     {
-        $this->priceCodeService = $priceCodeService;
         $this->rentalService = $rentalService;
     }
 

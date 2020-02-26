@@ -21,7 +21,7 @@ class StatementServiceTest extends TestCase
     public function testPlaintextStatement(): void
     {
         $priceCodeService = new PriceCodeService();
-        $service = new StatementService($priceCodeService, new RentalService());
+        $service = new StatementService(new RentalService());
 
         $customer = new Customer('name');
         $rental = new Rental(
@@ -52,7 +52,7 @@ You earned 1 frequent renter points',
     public function testHtmlStatement(): void
     {
         $priceCodeService = new PriceCodeService();
-        $service = new StatementService($priceCodeService, new RentalService());
+        $service = new StatementService(new RentalService());
 
         $customer = new Customer('name');
         $rental = new Rental(
