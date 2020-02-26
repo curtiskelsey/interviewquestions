@@ -21,14 +21,16 @@ class RentalServiceTest extends TestCase
 
         $rental = new Rental(
             new Movie(
-                'test',
-                new PriceCode(
-                    [
-                        'priceMultiplier' => 5,
-                        'daysRentedThreshold' => 1,
-                        'flatRate' => 2,
-                    ]
-                )
+                [
+                    'title' => 'test',
+                    'priceCode' => new PriceCode(
+                        [
+                            'priceMultiplier' => 5,
+                            'daysRentedThreshold' => 1,
+                            'flatRate' => 2,
+                        ]
+                    )
+                ]
             ),
             3
         );

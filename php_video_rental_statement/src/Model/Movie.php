@@ -16,10 +16,11 @@ class Movie implements
     /** @var PriceCode */
     private $priceCode;
 
-    public function __construct(string $title, PriceCode $priceCode)
+    public function __construct($data = null)
     {
-        $this->title = $title;
-        $this->priceCode = $priceCode;
+        if (is_array($data)) {
+            $this->fromArray($data);
+        }
     }
 
     public function getPriceCode(): PriceCode

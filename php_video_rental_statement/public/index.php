@@ -23,25 +23,48 @@ $format = $_GET['format'] ?? null;
 $priceCodeService = new PriceCodeService();
 $statementService = new StatementService($priceCodeService, new RentalService());
 
-$prognosisNegative = new Movie('Prognosis Negative', $priceCodeService->fetch(PriceCode::REGULAR));
-$sackLunch = new Movie('Sack Lunch', $priceCodeService->fetch(PriceCode::CHILDRENS));
-$painAndYearning = new Movie('The Pain and the Yearning', $priceCodeService->fetch(PriceCode::NEW_RELEASE));
+$prognosisNegative = new Movie(
+    [
+        'title' => 'Prognosis Negative',
+        'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+    ]
+);
 
-$customer = new Customer('Susan Ross');
+$sackLunch = new Movie(
+    [
+        'title' => 'Sack Lunch',
+        'priceCode' => $priceCodeService->fetch(PriceCode::CHILDRENS)
+    ]
+);
+
+$painAndYearning = new Movie(
+    [
+        'title' => 'The Pain and the Yearning',
+        'priceCode' => $priceCodeService->fetch(PriceCode::NEW_RELEASE)
+    ]
+);
+
+$customer = new Customer(
+    [
+        'name' => 'Susan Ross'
+    ]
+);
+
 $customer->addRental(
-  new Rental($prognosisNegative, 3)
+    new Rental($prognosisNegative, 3)
 );
 $customer->addRental(
-  new Rental($painAndYearning, 1)
+    new Rental($painAndYearning, 1)
 );
 $customer->addRental(
-  new Rental($sackLunch, 1)
+    new Rental($sackLunch, 1)
 );
 
 $statement = $statementService->generate($customer);
 
 if ($format === 'html') {
-    ?><link rel="stylesheet" href="assets/css/index.css" type="text/css"><?php
+    ?>
+    <link rel="stylesheet" href="assets/css/index.css" type="text/css"><?php
     echo $statementService->render($statement, StatementService::HTML_FORMAT);
     return;
 }

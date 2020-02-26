@@ -19,8 +19,10 @@ class MovieTest extends TestCase
         $priceCodeService = new PriceCodeService();
 
         $movie = new Movie(
-            'title',
-            $priceCodeService->fetch(PriceCode::REGULAR)
+            [
+                'title' => 'title',
+                'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+            ]
         );
 
         $this->assertInstanceOf(Movie::class, $movie);

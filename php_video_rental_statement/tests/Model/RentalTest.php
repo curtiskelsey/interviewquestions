@@ -21,8 +21,10 @@ class RentalTest extends TestCase
 
         $rental = new Rental(
             new Movie(
-                'title',
-                $priceCodeService->fetch(PriceCode::REGULAR)
+                [
+                    'title' => 'title',
+                    'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+                ]
             ),
             1
         );
