@@ -9,6 +9,8 @@ use AxisCare\Model\Customer;
 use AxisCare\Model\Statement;
 use AxisCare\Option\AxisCareOptions;
 use AxisCare\View\MissingMimeTypeException;
+use AxisCare\View\Renderer\RenderTypeMismatchException;
+use AxisCare\View\Renderer\StatementRenderer;
 use AxisCare\View\UnsupportedMimeTypeException;
 use AxisCare\View\ViewManager;
 use PHPUnit\Framework\TestCase;
@@ -16,15 +18,11 @@ use PHPUnit\Framework\TestCase;
 class StatementRendererTest extends TestCase
 {
     /**
-     * @throws MissingMimeTypeException
-     * @throws UnsupportedMimeTypeException
-     * @throws MissingPluginException
+     * @throws RenderTypeMismatchException
      */
     public function testRenderText(): void
     {
-        $viewManager = new ViewManager(
-            AxisCareOptions::create()
-        );
+        $statementRenderer = new StatementRenderer();
 
         $statement = new Statement(
             [
@@ -35,20 +33,16 @@ class StatementRendererTest extends TestCase
 
         $this->assertStringContainsString(
             "<pre>Rental Record for test\nAmount owed is 0\nYou earned 0 frequent renter points</pre>",
-            $viewManager->render($statement, MimeType::TEXT_PLAIN)
+            $statementRenderer->toText($statement)
         );
     }
 
     /**
-     * @throws MissingMimeTypeException
-     * @throws MissingPluginException
-     * @throws UnsupportedMimeTypeException
+     * @throws RenderTypeMismatchException
      */
     public function testRenderHtml(): void
     {
-        $viewManager = new ViewManager(
-            AxisCareOptions::create()
-        );
+        $statementRenderer = new StatementRenderer();
 
         $statement = new Statement(
             [
@@ -59,7 +53,7 @@ class StatementRendererTest extends TestCase
 
         $this->assertStringContainsString(
             '<h1',
-            $viewManager->render($statement, MimeType::TEXT_HTML)
+            $statementRenderer->toHtml($statement)
         );
     }
 }
