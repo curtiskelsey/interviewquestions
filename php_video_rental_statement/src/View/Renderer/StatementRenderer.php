@@ -39,14 +39,14 @@ class StatementRenderer implements
             $result .= sprintf(
                 "\t%s\t%s\n",
                 $text,
-                number_format($value, 0)
+                $value
             );
         }
 
         // add footer lines
         $result .= sprintf(
             "Amount owed is %s\nYou earned %d frequent renter points</pre>",
-            number_format($object->getTotal(), 0),
+            $object->getTotal(),
             $object->getFrequentRenterPoints()
         );
 
