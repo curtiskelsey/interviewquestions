@@ -26,6 +26,9 @@ class Rental implements
     /** @var int  */
     private $daysRented;
 
+    /** @var Carbon */
+    private $firstDay;
+
     public function __construct($data = null)
     {
         $this->created = Carbon::now();
@@ -69,6 +72,24 @@ class Rental implements
     public function setMovie(Movie $movie): self
     {
         $this->movie = $movie;
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getFirstDay(): Carbon
+    {
+        return $this->firstDay;
+    }
+
+    /**
+     * @param Carbon $firstDay
+     * @return $this
+     */
+    public function setFirstDay(Carbon $firstDay): self
+    {
+        $this->firstDay = $firstDay;
         return $this;
     }
 }
