@@ -7,29 +7,58 @@ use AxisCare\View\Renderer\RenderTextInterface;
 use AxisCare\View\Renderer\StatementRenderer;
 
 return [
-    'priceCodes' => [
+    'movieClassifications' => [
         [
             'id' => 0,
             'name' => 'Regular',
-            'priceMultiplier' => 1.5,
-            'daysRentedThreshold' => 2,
-            'flatRate' => 2,
+            'pointsProfile' => 1,
+            'rateProfile' => 1,
         ],
         [
             'id' => 1,
             'name' => 'New Release',
-            'priceMultiplier' => 3,
-            'daysRentedThreshold' => 0,
-            'flatRate' => 0,
-            'bonusFrequentRenterPoints' => 1,
-            'bonusFrequentRenterPointsThreshold' => 1,
+            'pointsProfile' => 2,
+            'rateProfile' => 2,
         ],
         [
             'id' => 2,
             'name' => 'Childrens',
-            'priceMultiplier' => 1.5,
-            'daysRentedThreshold' => 3,
-            'flatRate' => 1.5,
+            'pointsProfile' => 2,
+            'rateProfile' => 3,
+        ]
+    ],
+    'pointsProfiles' => [
+        [
+            'id' => 1,
+            'basePoints' => 1,
+            'bonusPoints' => 0,
+            'bonusPointsThreshold' => 1,
+        ],
+        [
+            'id' => 2,
+            'basePoints' => 1,
+            'bonusPoints' => 1,
+            'bonusPointsThreshold' => 1,
+        ],
+    ],
+    'rateProfiles' => [
+        [
+            'id' => 1,
+            'baseRate' => 2,
+            'rate' => 1.5,
+            'rateThreshold' => 2,
+        ],
+        [
+            'id' => 2,
+            'baseRate' => 0,
+            'rate' => 3,
+            'rateThreshold' => 0,
+        ],
+        [
+            'id' => 3,
+            'baseRate' => 1.5,
+            'rate' => 1.5,
+            'rateThreshold' => 3,
         ],
     ],
     'supportedMimeTypes' => [

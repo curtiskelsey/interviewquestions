@@ -76,32 +76,6 @@ class AxisCareOptions implements ArraySerializableInterface
         ],
     ];
 
-    private $priceCodes = [
-        [
-            'id' => 0,
-            'name' => 'Regular',
-            'priceMultiplier' => 1.5,
-            'daysRentedThreshold' => 2,
-            'flatRate' => 2,
-        ],
-        [
-            'id' => 1,
-            'name' => 'New Release',
-            'priceMultiplier' => 3,
-            'daysRentedThreshold' => 0,
-            'flatRate' => 0,
-            'bonusFrequentRenterPoints' => 1,
-            'bonusFrequentRenterPointsThreshold' => 1,
-        ],
-        [
-            'id' => 2,
-            'name' => 'Childrens',
-            'priceMultiplier' => 1.5,
-            'daysRentedThreshold' => 3,
-            'flatRate' => 1.5,
-        ],
-    ];
-
     /**
      * @var string[]
      */
@@ -150,24 +124,6 @@ class AxisCareOptions implements ArraySerializableInterface
     public function getViewRendererPlugins(): array
     {
         return $this->viewRendererPlugins;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPriceCodes(): array
-    {
-        return $this->priceCodes;
-    }
-
-    /**
-     * @param array $priceCodes
-     * @return $this
-     */
-    public function setPriceCodes(array $priceCodes): self
-    {
-        $this->priceCodes = $priceCodes;
-        return $this;
     }
 
     /**

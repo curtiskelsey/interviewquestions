@@ -12,21 +12,8 @@ class Movie extends AbstractModel
     /** @var string string */
     protected $title;
 
-    /** @var PriceCode */
-    protected $priceCode;
-
     /** @var MovieClassification */
     protected $movieClassification;
-
-    public function getPriceCode(): PriceCode
-    {
-        return $this->priceCode;
-    }
-
-    public function setPriceCode(PriceCode $priceCode)
-    {
-        $this->priceCode = $priceCode;
-    }
 
     public function getTitle(): string
     {

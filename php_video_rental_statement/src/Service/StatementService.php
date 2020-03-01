@@ -40,15 +40,16 @@ class StatementService
         foreach ($customer->getRentals() as $rental) {
             $rentalAmount = $this->getRentalService()->getTotal($rental);
 
-            // add frequent renter points
-            $statement->addFrequentRenterPoints(1);
-
             $movie = $rental->getMovie();
-            $priceCode = $movie->getPriceCode();
+            $classification = $movie->getMovieClassification();
+            $pointsProfile = $classification->getPointsProfile();
+
+            // add frequent renter points
+            $statement->addFrequentRenterPoints($pointsProfile->getBasePoints());
 
             // add bonus frequent renter points
-            if ($rental->getDaysRented() > $priceCode->getBonusFrequentRenterPointsThreshold()) {
-                $statement->addFrequentRenterPoints($priceCode->getBonusFrequentRenterPoints());
+            if ($rental->getDaysRented() > $pointsProfile->getBonusPointsThreshold()) {
+                $statement->addFrequentRenterPoints($pointsProfile->getBonusPoints());
             }
 
             $statement->addLineItem(

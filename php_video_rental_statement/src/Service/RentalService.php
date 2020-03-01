@@ -20,17 +20,18 @@ class RentalService
     public function getTotal(Rental $rental): float
     {
         $movie = $rental->getMovie();
-        $priceCode = $movie->getPriceCode();
+        $classification = $movie->getMovieClassification();
+        $rateProfile = $classification->getRateProfile();
 
-        $amount = $priceCode->getFlatRate();
+        $amount = $rateProfile->getBaseRate();
 
-        $chargeableDays = $rental->getDaysRented() - $priceCode->getDaysRentedThreshold();
+        $chargeableDays = $rental->getDaysRented() - $rateProfile->getRateThreshold();
 
         if ($chargeableDays < 0) {
             $chargeableDays = 0;
         }
 
-        $amount += ($chargeableDays * $priceCode->getPriceMultiplier());
+        $amount += ($chargeableDays * $rateProfile->getRate());
 
         return $amount;
     }

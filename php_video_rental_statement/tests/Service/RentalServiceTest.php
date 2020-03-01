@@ -4,7 +4,9 @@
 namespace AxisCareTest;
 
 use AxisCare\Model\Movie;
-use AxisCare\Model\PriceCode;
+use AxisCare\Model\MovieClassification;
+use AxisCare\Model\PointsProfile;
+use AxisCare\Model\RateProfile;
 use AxisCare\Model\Rental;
 use AxisCare\Service\RentalService;
 use PHPUnit\Framework\TestCase;
@@ -24,13 +26,13 @@ class RentalServiceTest extends TestCase
                 'movie' => new Movie(
                     [
                         'title' => 'test',
-                        'priceCode' => new PriceCode(
+                        'movieClassification' => new MovieClassification(
                             [
-                                'priceMultiplier' => 5,
-                                'daysRentedThreshold' => 1,
-                                'flatRate' => 2,
+                                'name' => 'test',
+                                'pointsProfile' => new PointsProfile(),
+                                'rateProfile' => new RateProfile(),
                             ]
-                        )
+                        ),
                     ]
                 ),
                 'daysRented' => 3
@@ -38,6 +40,6 @@ class RentalServiceTest extends TestCase
         );
 
         $total = $service->getTotal($rental);
-        $this->assertEquals(12, $total);
+        $this->assertEquals(2.0, $total);
     }
 }

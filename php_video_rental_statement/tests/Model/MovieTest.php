@@ -4,9 +4,9 @@
 namespace AxisCareTest\Model;
 
 use AxisCare\Model\Movie;
-use AxisCare\Model\PriceCode;
-use AxisCare\Option\AxisCareOptions;
-use AxisCare\Service\PriceCodeService;
+use AxisCare\Model\MovieClassification;
+use AxisCare\Model\PointsProfile;
+use AxisCare\Model\RateProfile;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,12 +17,16 @@ class MovieTest extends TestCase
 {
     public function testConstruct()
     {
-        $priceCodeService = new PriceCodeService(AxisCareOptions::create());
-
         $movie = new Movie(
             [
                 'title' => 'title',
-                'priceCode' => $priceCodeService->fetch(PriceCode::REGULAR)
+                'movieClassification' => new MovieClassification(
+                    [
+                        'name' => 'test',
+                        'pointsProfile' => new PointsProfile(),
+                        'rateProfile' => new RateProfile(),
+                    ]
+                ),
             ]
         );
 
