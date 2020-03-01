@@ -13,6 +13,12 @@ Copy the distributable config file (`config/local.php.dist`) to
 and modify the contents to configure the package as desired. The default configuration values have been provided in
 the `config/local.php.dist` file.
 
+| Default Supported Mime Types |
+| ------------- |
+| \*/* | 
+| text/html |
+| text/plain |
+
 ## Setup
 
 Run:
