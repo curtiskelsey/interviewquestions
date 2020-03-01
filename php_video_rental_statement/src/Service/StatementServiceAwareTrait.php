@@ -5,6 +5,7 @@ namespace AxisCare\Service;
 /**
  * Class StatementServiceAwareTrait
  * @package AxisCare
+ * @codeCoverageIgnore
  */
 trait StatementServiceAwareTrait
 {

@@ -5,6 +5,11 @@ namespace AxisCare\Model;
 use AxisCare\ArraySerializableInterface;
 use AxisCare\ArraySerializableTrait;
 
+/**
+ * Class Movie
+ * @package AxisCare\Model
+ * @codeCoverageIgnore
+ */
 class Movie implements
     ArraySerializableInterface
 {

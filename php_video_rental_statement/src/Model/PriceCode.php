@@ -9,6 +9,7 @@ use AxisCare\ArraySerializableTrait;
 /**
  * Class PriceCode
  * @package AxisCare
+ * @codeCoverageIgnore
  */
 class PriceCode implements
     ArraySerializableInterface

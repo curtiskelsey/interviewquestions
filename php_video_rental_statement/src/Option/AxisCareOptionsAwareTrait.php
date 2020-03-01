@@ -5,6 +5,7 @@ namespace AxisCare\Option;
 /**
  * Class AxisCareOptionsAwareTrait
  * @package AxisCare\Option
+ * @codeCoverageIgnore
  */
 trait AxisCareOptionsAwareTrait
 {

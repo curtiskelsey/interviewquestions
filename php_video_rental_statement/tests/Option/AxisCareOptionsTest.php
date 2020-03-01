@@ -18,4 +18,11 @@ class AxisCareOptionsTest extends TestCase
 
         $this->assertInstanceOf(AxisCareOptions::class, $options);
     }
+
+    public function testConstruct(): void
+    {
+        $options = new AxisCareOptions([]);
+
+        $this->assertInstanceOf(AxisCareOptions::class, $options);
+    }
 }

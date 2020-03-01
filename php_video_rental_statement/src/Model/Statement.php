@@ -9,6 +9,7 @@ use AxisCare\ArraySerializableTrait;
 /**
  * Class Statement
  * @package AxisCare
+ * @codeCoverageIgnore
  */
 class Statement extends AbstractReport implements
     ArraySerializableInterface

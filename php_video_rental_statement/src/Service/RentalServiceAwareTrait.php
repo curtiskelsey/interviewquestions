@@ -5,6 +5,7 @@ namespace AxisCare\Service;
 /**
  * Class RentalServiceAwareTrait
  * @package AxisCare\Service
+ * @codeCoverageIgnore
  */
 trait RentalServiceAwareTrait
 {

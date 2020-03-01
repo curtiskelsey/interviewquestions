@@ -3,16 +3,10 @@
 
 namespace AxisCareTest\View\Renderer;
 
-use AxisCare\Enumerable\MimeType;
-use AxisCare\MissingPluginException;
 use AxisCare\Model\Customer;
 use AxisCare\Model\Statement;
-use AxisCare\Option\AxisCareOptions;
-use AxisCare\View\MissingMimeTypeException;
 use AxisCare\View\Renderer\RenderTypeMismatchException;
 use AxisCare\View\Renderer\StatementRenderer;
-use AxisCare\View\UnsupportedMimeTypeException;
-use AxisCare\View\ViewManager;
 use PHPUnit\Framework\TestCase;
 
 class StatementRendererTest extends TestCase
@@ -37,6 +31,19 @@ class StatementRendererTest extends TestCase
         );
     }
 
+    public function testRenderTextMismatch(): void
+    {
+        $statementRenderer = new StatementRenderer();
+
+        $customer = new Customer([]);
+
+        try {
+            $statementRenderer->toText($customer);
+        } catch (\Throwable $throwable) {
+            $this->assertInstanceOf(RenderTypeMismatchException::class, $throwable);
+        }
+    }
+
     /**
      * @throws RenderTypeMismatchException
      */
@@ -55,5 +62,18 @@ class StatementRendererTest extends TestCase
             '<h1',
             $statementRenderer->toHtml($statement)
         );
+    }
+
+    public function testRenderHtmlMismatch(): void
+    {
+        $statementRenderer = new StatementRenderer();
+
+        $customer = new Customer([]);
+
+        try {
+            $statementRenderer->toHtml($customer);
+        } catch (\Throwable $throwable) {
+            $this->assertInstanceOf(RenderTypeMismatchException::class, $throwable);
+        }
     }
 }

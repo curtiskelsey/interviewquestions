@@ -5,6 +5,7 @@ namespace AxisCare\Service;
 /**
  * Class ConfigAwareTrait
  * @package AxisCare
+ * @codeCoverageIgnore
  */
 trait ConfigAwareTrait
 {

@@ -5,6 +5,7 @@ namespace AxisCare\Service;
 /**
  * Class PriceCodeServiceAwareTrait
  * @package AxisCare
+ * @codeCoverageIgnore
  */
 trait PriceCodeServiceAwareTrait
 {

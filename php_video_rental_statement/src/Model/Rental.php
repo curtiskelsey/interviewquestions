@@ -5,6 +5,11 @@ namespace AxisCare\Model;
 use AxisCare\ArraySerializableInterface;
 use AxisCare\ArraySerializableTrait;
 
+/**
+ * Class Rental
+ * @package AxisCare\Model
+ * @codeCoverageIgnore
+ */
 class Rental implements
     ArraySerializableInterface
 {

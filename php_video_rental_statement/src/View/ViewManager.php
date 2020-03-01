@@ -17,6 +17,10 @@ class ViewManager
 {
     use AxisCareOptionsAwareTrait;
 
+    /**
+     * ViewManager constructor.
+     * @param AxisCareOptions $axisCareOptions
+     */
     public function __construct(AxisCareOptions $axisCareOptions)
     {
         $this->axisCareOptions = $axisCareOptions;

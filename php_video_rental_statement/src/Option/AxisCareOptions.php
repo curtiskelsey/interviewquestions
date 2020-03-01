@@ -52,6 +52,7 @@ class AxisCareOptions implements ArraySerializableInterface
     }
 
     /**
+     * @codeCoverageIgnore
      * @return string[]
      */
     public function getSupportedMimeTypes(): array
@@ -60,6 +61,7 @@ class AxisCareOptions implements ArraySerializableInterface
     }
 
     /**
+     * @codeCoverageIgnore
      * @return string[]
      */
     public function getViewRendererPlugins(): array
