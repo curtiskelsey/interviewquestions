@@ -3,58 +3,37 @@
 
 namespace AxisCare\Model;
 
-use AxisCare\ArraySerializableInterface;
-use AxisCare\ArraySerializableTrait;
-use AxisCare\AuditableInterface;
-use AxisCare\AuditableTrait;
-use Carbon\Carbon;
-
 /**
  * Class PriceCode
  * @package AxisCare
  * @codeCoverageIgnore
  */
-class PriceCode implements
-    ArraySerializableInterface,
-    AuditableInterface
+class PriceCode extends AbstractModel
 {
-    use ArraySerializableTrait,
-        AuditableTrait;
-
     public const CHILDRENS = 2;
     public const REGULAR = 0;
     public const NEW_RELEASE = 1;
 
     /** @var int */
-    private $id;
+    protected $id;
 
     /** @var string */
-    private $name;
+    protected $name;
 
     /** @var float */
-    private $priceMultiplier = 1;
+    protected $priceMultiplier = 1;
 
     /** @var int */
-    private $daysRentedThreshold = 1;
+    protected $daysRentedThreshold = 1;
 
-    /** @var int  */
-    private $bonusFrequentRenterPoints = 0;
+    /** @var int */
+    protected $bonusFrequentRenterPoints = 0;
 
-    /** @var int  */
-    private $bonusFrequentRenterPointsThreshold = 1;
+    /** @var int */
+    protected $bonusFrequentRenterPointsThreshold = 1;
 
-    /** @var float  */
-    private $flatRate = 0;
-
-    public function __construct(array $data = null)
-    {
-        $this->created = Carbon::now();
-        $this->lastModified = Carbon::now();
-
-        if ($data) {
-            $this->fromArray($data);
-        }
-    }
+    /** @var float */
+    protected $flatRate = 0;
 
     /**
      * @return int
