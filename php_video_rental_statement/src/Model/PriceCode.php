@@ -7,6 +7,7 @@ namespace AxisCare\Model;
  * Class PriceCode
  * @package AxisCare
  * @codeCoverageIgnore
+ * @deprecated Move to \AxisCare\Model\MovieClassification
  */
 class PriceCode extends AbstractModel
 {
