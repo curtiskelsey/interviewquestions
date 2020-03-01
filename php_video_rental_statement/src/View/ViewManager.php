@@ -3,10 +3,11 @@
 
 namespace AxisCare\View;
 
-use AxisCare\Enumerable\MimeType;
 use AxisCare\MissingPluginException;
 use AxisCare\Option\AxisCareOptions;
 use AxisCare\Option\AxisCareOptionsAwareTrait;
+use AxisCare\View\Renderer\RenderHtmlInterface;
+use AxisCare\View\Renderer\RenderTextInterface;
 
 /**
  * Class ViewManager
@@ -50,26 +51,15 @@ class ViewManager
 
     /**
      * @param mixed $object
-     * @param string|null $format
+     * @param string|null $acceptHeaderString
      * @return string
      * @throws UnsupportedMimeTypeException
      * @throws MissingMimeTypeException
      * @throws MissingPluginException
      */
-    public function render($object, ?string $format): string
+    public function render($object, ?string $acceptHeaderString): string
     {
-        $supportedMimeTypes = $this->getAxisCareOptions()->getSupportedMimeTypes();
-
-        if (!in_array($format, array_keys($supportedMimeTypes), true)) {
-            throw new UnsupportedMimeTypeException(
-                sprintf(
-                    '%s is not currently supported for rendering',
-                    $format
-                )
-            );
-        }
-
-        $requiredRenderingInterface = $supportedMimeTypes[$format];
+        $requiredRenderingInterface = $this->parseFormat($acceptHeaderString);
         $renderer = $this->get(get_class($object));
 
         if (!$renderer instanceof $requiredRenderingInterface) {
@@ -82,12 +72,11 @@ class ViewManager
             );
         }
 
-        switch ($format) {
-            case MimeType::WILDCARD:
-            case MimeType::TEXT_HTML:
+        switch ($requiredRenderingInterface) {
+            case RenderHtmlInterface::class:
                 return $renderer->toHtml($object);
                 break;
-            case MimeType::TEXT_PLAIN:
+            case RenderTextInterface::class:
                 return $renderer->toText($object);
             default:
                 throw new MissingMimeTypeException(
@@ -95,5 +84,41 @@ class ViewManager
                 );
                 break;
         }
+    }
+
+    /**
+     * Sometimes the ACCEPT header on an HTTP request will have more than one accepted type
+     *
+     * @param string|null $acceptHeaderString
+     * @return string|null
+     * @throws UnsupportedMimeTypeException
+     */
+    private function parseFormat(?string $acceptHeaderString): ?string
+    {
+        if (!$acceptHeaderString) {
+            return $acceptHeaderString;
+        }
+
+        $supportedMimeTypes = $this->getAxisCareOptions()->getSupportedMimeTypes();
+        $supportedMimeTypeKeys = array_keys($supportedMimeTypes);
+
+        $types = explode(',', $acceptHeaderString);
+
+        if (count($types) > 0) {
+            foreach ($types as $type) {
+                if (in_array($type, $supportedMimeTypeKeys, true)) {
+                    return $supportedMimeTypes[$type];
+                }
+            }
+
+            throw new UnsupportedMimeTypeException(
+                sprintf(
+                    '%s is not currently supported for rendering',
+                    $acceptHeaderString
+                )
+            );
+        }
+
+        return null;
     }
 }
