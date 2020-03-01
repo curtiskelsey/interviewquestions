@@ -30,11 +30,9 @@ class StatementRenderer implements
             );
         }
 
-        $customer = $object->getCustomer();
-
         $result = sprintf(
             "<pre>Rental Record for %s\n",
-            $customer->getName()
+            $object->getHeading()
         );
 
         foreach ($object->getLineItems() as $text => $value) {
@@ -72,13 +70,11 @@ class StatementRenderer implements
             );
         }
 
-        $customer = $object->getCustomer();
-
         $result = '<link rel="stylesheet" href="assets/css/index.css" type="text/css">';
 
         $result .= sprintf(
             '<h1 class="header">Rentals for <span class="customer-name">%s</span></h1>',
-            $customer->getName()
+            $object->getHeading()
         );
 
         $result .= '<ul class="rental-list">';

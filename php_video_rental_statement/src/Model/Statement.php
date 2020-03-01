@@ -10,20 +10,10 @@ use AxisCare\ArraySerializableTrait;
  * Class Statement
  * @package AxisCare
  */
-class Statement implements
+class Statement extends AbstractReport implements
     ArraySerializableInterface
 {
     use ArraySerializableTrait;
-
-    /**
-     * @var float
-     */
-    private $total = 0;
-
-    /**
-     * @var float[]
-     */
-    private $lineItems = [];
 
     /**
      * @var int
@@ -44,28 +34,6 @@ class Statement implements
         if (is_array($data)) {
             $this->fromArray($data);
         }
-    }
-
-    public function addToTotal(float $amount): self
-    {
-        $this->total += $amount;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTotal(): float
-    {
-        return $this->total;
-    }
-
-    /**
-     * @param float $total
-     */
-    public function setTotal(float $total): void
-    {
-        $this->total = $total;
     }
 
     /**
@@ -111,26 +79,6 @@ class Statement implements
     public function setCustomer(Customer $customer): self
     {
         $this->customer = $customer;
-        return $this;
-    }
-
-    /**
-     * @return float[]
-     */
-    public function getLineItems(): array
-    {
-        return $this->lineItems;
-    }
-
-    /**
-     * @param string $text
-     * @param float $amount
-     * @return $this
-     */
-    public function addLineItem(string $text, float $amount): self
-    {
-        $this->lineItems[$text] = $amount;
-
         return $this;
     }
 }

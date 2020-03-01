@@ -31,6 +31,8 @@ class StatementService
     {
         $statement = new Statement($customer);
 
+        $statement->setHeading($customer->getName());
+
         // determine amounts for each line
         foreach ($customer->getRentals() as $rental) {
             $rentalAmount = $this->getRentalService()->getTotal($rental);
