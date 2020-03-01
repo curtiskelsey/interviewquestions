@@ -15,6 +15,9 @@ class Movie extends AbstractModel
     /** @var PriceCode */
     protected $priceCode;
 
+    /** @var MovieClassification */
+    protected $movieClassification;
+
     public function getPriceCode(): PriceCode
     {
         return $this->priceCode;
@@ -37,6 +40,24 @@ class Movie extends AbstractModel
     public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return MovieClassification
+     */
+    public function getMovieClassification(): MovieClassification
+    {
+        return $this->movieClassification;
+    }
+
+    /**
+     * @param MovieClassification $movieClassification
+     * @return $this
+     */
+    public function setMovieClassification(MovieClassification $movieClassification): self
+    {
+        $this->movieClassification = $movieClassification;
         return $this;
     }
 }

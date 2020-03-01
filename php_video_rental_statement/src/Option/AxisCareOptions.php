@@ -33,7 +33,7 @@ class AxisCareOptions implements ArraySerializableInterface
             'rateProfile' => 2,
         ],
         [
-            'id' => 1,
+            'id' => 2,
             'name' => 'Childrens',
             'pointsProfile' => 2,
             'rateProfile' => 3,
