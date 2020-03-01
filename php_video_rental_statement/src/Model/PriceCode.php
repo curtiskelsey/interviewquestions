@@ -5,6 +5,9 @@ namespace AxisCare\Model;
 
 use AxisCare\ArraySerializableInterface;
 use AxisCare\ArraySerializableTrait;
+use AxisCare\AuditableInterface;
+use AxisCare\AuditableTrait;
+use Carbon\Carbon;
 
 /**
  * Class PriceCode
@@ -12,9 +15,11 @@ use AxisCare\ArraySerializableTrait;
  * @codeCoverageIgnore
  */
 class PriceCode implements
-    ArraySerializableInterface
+    ArraySerializableInterface,
+    AuditableInterface
 {
-    use ArraySerializableTrait;
+    use ArraySerializableTrait,
+        AuditableTrait;
 
     public const CHILDRENS = 2;
     public const REGULAR = 0;
@@ -43,6 +48,9 @@ class PriceCode implements
 
     public function __construct(array $data = null)
     {
+        $this->created = Carbon::now();
+        $this->lastModified = Carbon::now();
+
         if ($data) {
             $this->fromArray($data);
         }

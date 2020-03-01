@@ -4,6 +4,9 @@ namespace AxisCare\Model;
 
 use AxisCare\ArraySerializableInterface;
 use AxisCare\ArraySerializableTrait;
+use AxisCare\AuditableInterface;
+use AxisCare\AuditableTrait;
+use Carbon\Carbon;
 
 /**
  * Class Customer
@@ -11,9 +14,11 @@ use AxisCare\ArraySerializableTrait;
  * @codeCoverageIgnore
  */
 class Customer implements
-    ArraySerializableInterface
+    ArraySerializableInterface,
+    AuditableInterface
 {
-    use ArraySerializableTrait;
+    use ArraySerializableTrait,
+        AuditableTrait;
 
     /** @var string */
     private $name;
@@ -23,6 +28,9 @@ class Customer implements
 
     public function __construct($data = null)
     {
+        $this->created = Carbon::now();
+        $this->lastModified = Carbon::now();
+
         if (is_string($data)) {
             $this->name = $data;
         }
