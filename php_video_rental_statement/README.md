@@ -19,6 +19,56 @@ the `config/local.php.dist` file.
 | text/html |
 | text/plain |
 
+### Points Profiles
+
+Points profiles provide information to the movie classification about how many frequent renter points a customer earns
+when the movie is rented. 
+
+```php
+[
+    'id' => 1,
+    'basePoints' => 1,
+    'bonusPoints' => 0,
+    'bonusPointsThreshold' => 1,
+],
+```
+
+The `basePoints` indicate how many points a customer earns for renting the movie, reguardless of the number of nights.
+The `bonusPoints` indicate how many additional points can be earned once a certain number of rental nights has been 
+reached, indicated by the `bonusPointsThreshold`. 
+
+### Rate Profiles
+
+Rate profiles provide information to the movie classification about how much a movie costs when it is rented. 
+
+```php
+[
+    'id' => 1,
+    'baseRate' => 1,
+    'rate' => 0,
+    'rateThreshold' => 1,
+],
+```
+
+The `baseRate` indicates the initial cost of renting the movie, up to a defined number of nights (`rateThreshold`).
+The `rate` indicates the additional cost per night once the rental has reached the `rateThreshold` number of nights. 
+
+### Movie Classifications
+
+Movie classifications provide classification names for movies and tie a movie to a points profile and rate profile.
+ 
+ ```php
+[
+    'id' => 2,
+    'name' => 'Childrens',
+    'pointsProfile' => 2,
+    'rateProfile' => 3,
+],
+```
+
+When setting the `pointsProfile` and `rateProfile` for a movie classification in the config, use the `id` of the 
+corresponding record. When loaded, the record will automatically be resolved.
+
 ## Setup
 
 Run:
