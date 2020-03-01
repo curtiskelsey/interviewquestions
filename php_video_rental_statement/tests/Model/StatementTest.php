@@ -16,7 +16,9 @@ class StatementTest extends TestCase
     public function testAddToTotal()
     {
         $statement = new Statement(
-            new Customer('test')
+            [
+                'customer' => new Customer('test'),
+            ]
         );
 
         $this->assertEquals(0, $statement->getTotal());
@@ -29,7 +31,9 @@ class StatementTest extends TestCase
     public function testAddFrequentRenterPoints()
     {
         $statement = new Statement(
-            new Customer('test')
+            [
+                'customer' => new Customer('test'),
+            ]
         );
 
         $this->assertEquals(0, $statement->getFrequentRenterPoints());
@@ -42,7 +46,9 @@ class StatementTest extends TestCase
     public function testAddLineItem()
     {
         $statement = new Statement(
-            new Customer('test')
+            [
+                'customer' => new Customer('test'),
+            ]
         );
 
         $this->assertCount(0, $statement->getLineItems());

@@ -29,9 +29,12 @@ class StatementService
      */
     public function generate(Customer $customer): Statement
     {
-        $statement = new Statement($customer);
-
-        $statement->setHeading($customer->getName());
+        $statement = new Statement(
+            [
+                'customer' => $customer,
+                'heading' => $customer->getName()
+            ]
+        );
 
         // determine amounts for each line
         foreach ($customer->getRentals() as $rental) {

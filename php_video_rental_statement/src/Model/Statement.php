@@ -36,10 +36,6 @@ class Statement extends AbstractReport implements
         $this->created = Carbon::now();
         $this->lastModified = Carbon::now();
 
-        if ($data instanceof Customer) {
-            $this->customer = $data;
-        }
-
         if (is_array($data)) {
             $this->fromArray($data);
         }
