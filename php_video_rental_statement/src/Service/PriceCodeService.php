@@ -5,6 +5,8 @@ namespace AxisCare\Service;
 
 use AxisCare\DataProviderInterface;
 use AxisCare\Model\PriceCode;
+use AxisCare\Option\AxisCareOptions;
+use AxisCare\Option\AxisCareOptionsAwareTrait;
 
 /**
  * Class PriceCodeService
@@ -12,14 +14,14 @@ use AxisCare\Model\PriceCode;
  */
 class PriceCodeService implements DataProviderInterface
 {
-    use ConfigAwareTrait;
+    use AxisCareOptionsAwareTrait;
 
     /** @var PriceCode[] */
     private $priceCodes = [];
 
-    public function __construct()
+    public function __construct(AxisCareOptions $axisCareOptions)
     {
-        $this->config = include __DIR__ . '/../../config/local.php';
+        $this->axisCareOptions = $axisCareOptions;
     }
 
     /**
@@ -31,11 +33,7 @@ class PriceCodeService implements DataProviderInterface
             return $this->priceCodes;
         }
 
-        if (!array_key_exists('priceCodes', $this->config)) {
-            return [];
-        }
-
-        foreach ($this->config['priceCodes'] as $priceCodeConfig) {
+        foreach ($this->getAxisCareOptions()->getPriceCodes() as $priceCodeConfig) {
             $this->priceCodes[$priceCodeConfig['id']] = new PriceCode(
                 $priceCodeConfig
             );

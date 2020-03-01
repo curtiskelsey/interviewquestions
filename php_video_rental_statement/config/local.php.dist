@@ -1,5 +1,11 @@
 <?php
 
+use AxisCare\Enumerable\MimeType;
+use AxisCare\Model\Statement;
+use AxisCare\View\Renderer\RenderHtmlInterface;
+use AxisCare\View\Renderer\RenderTextInterface;
+use AxisCare\View\Renderer\StatementRenderer;
+
 return [
     'priceCodes' => [
         [
@@ -25,5 +31,13 @@ return [
             'daysRentedThreshold' => 3,
             'flatRate' => 1.5,
         ],
-    ]
+    ],
+    'supportedMimeTypes' => [
+        MimeType::WILDCARD => RenderHtmlInterface::class,
+        MimeType::TEXT_HTML => RenderHtmlInterface::class,
+        MimeType::TEXT_PLAIN => RenderTextInterface::class,
+    ],
+    'viewRendererPlugins' => [
+        Statement::class => StatementRenderer::class,
+    ],
 ];

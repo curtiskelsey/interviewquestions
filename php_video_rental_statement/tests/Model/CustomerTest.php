@@ -7,6 +7,7 @@ use AxisCare\Model\Customer;
 use AxisCare\Model\Movie;
 use AxisCare\Model\PriceCode;
 use AxisCare\Model\Rental;
+use AxisCare\Option\AxisCareOptions;
 use AxisCare\Service\PriceCodeService;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +26,7 @@ class CustomerTest extends TestCase
 
     public function testAddRental(): void
     {
-        $priceCodeService = new PriceCodeService();
+        $priceCodeService = new PriceCodeService(AxisCareOptions::create());
 
         $customer = new Customer('name');
         $rental = new Rental(

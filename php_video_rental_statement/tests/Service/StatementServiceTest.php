@@ -7,6 +7,7 @@ use AxisCare\Model\Customer;
 use AxisCare\Model\Movie;
 use AxisCare\Model\PriceCode;
 use AxisCare\Model\Rental;
+use AxisCare\Option\AxisCareOptions;
 use AxisCare\Service\PriceCodeService;
 use AxisCare\Service\RentalService;
 use AxisCare\Service\StatementService;
@@ -20,7 +21,7 @@ class StatementServiceTest extends TestCase
 {
     public function testGenerate(): void
     {
-        $priceCodeService = new PriceCodeService();
+        $priceCodeService = new PriceCodeService(AxisCareOptions::create());
         $service = new StatementService(new RentalService());
 
         $customer = new Customer('name');

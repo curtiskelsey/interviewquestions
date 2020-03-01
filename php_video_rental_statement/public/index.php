@@ -25,7 +25,7 @@ require $autoloader;
 $acceptHeaderString = $_SERVER['HTTP_ACCEPT'] ?? MimeType::TEXT_PLAIN;
 $options = AxisCareOptions::create();
 $viewManager = new ViewManager($options);
-$priceCodeService = new PriceCodeService();
+$priceCodeService = new PriceCodeService($options);
 $statementService = new StatementService(new RentalService());
 
 $customer = new Customer(
