@@ -3,43 +3,22 @@
 
 namespace AxisCare\Model;
 
-use AxisCare\ArraySerializableInterface;
-use AxisCare\ArraySerializableTrait;
-use AxisCare\AuditableInterface;
-use AxisCare\AuditableTrait;
-use Carbon\Carbon;
-
 /**
  * Class Statement
  * @package AxisCare
  * @codeCoverageIgnore
  */
-class Statement extends AbstractReport implements
-    ArraySerializableInterface,
-    AuditableInterface
+class Statement extends AbstractReport
 {
-    use ArraySerializableTrait,
-        AuditableTrait;
-
     /**
      * @var int
      */
-    private $frequentRenterPoints = 0;
+    protected $frequentRenterPoints = 0;
 
     /**
      * @var Customer
      */
-    private $customer;
-
-    public function __construct($data = null)
-    {
-        $this->created = Carbon::now();
-        $this->lastModified = Carbon::now();
-
-        if (is_array($data)) {
-            $this->fromArray($data);
-        }
-    }
+    protected $customer;
 
     /**
      * @param int $amount

@@ -19,7 +19,7 @@ class CustomerTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $customer = new Customer('name');
+        $customer = new Customer(['name' => 'John']);
 
         $this->assertInstanceOf(Customer::class, $customer);
     }
@@ -28,7 +28,7 @@ class CustomerTest extends TestCase
     {
         $priceCodeService = new PriceCodeService(AxisCareOptions::create());
 
-        $customer = new Customer('name');
+        $customer = new Customer(['name' => 'John']);
         $rental = new Rental(
             [
                 'movie' => new Movie(

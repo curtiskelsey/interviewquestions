@@ -24,7 +24,7 @@ class StatementServiceTest extends TestCase
         $priceCodeService = new PriceCodeService(AxisCareOptions::create());
         $service = new StatementService(new RentalService());
 
-        $customer = new Customer('name');
+        $customer = new Customer(['name' => 'John']);
         $rental = new Rental(
             [
                 'movie' => new Movie(

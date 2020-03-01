@@ -17,7 +17,7 @@ class StatementTest extends TestCase
     {
         $statement = new Statement(
             [
-                'customer' => new Customer('test'),
+                'customer' => new Customer(['name' => 'John']),
             ]
         );
 
@@ -32,7 +32,7 @@ class StatementTest extends TestCase
     {
         $statement = new Statement(
             [
-                'customer' => new Customer('test'),
+                'customer' => new Customer(['name' => 'John']),
             ]
         );
 
@@ -47,7 +47,7 @@ class StatementTest extends TestCase
     {
         $statement = new Statement(
             [
-                'customer' => new Customer('test'),
+                'customer' => new Customer(['name' => 'John']),
             ]
         );
 

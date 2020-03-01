@@ -2,10 +2,6 @@
 
 namespace AxisCare\Model;
 
-use AxisCare\ArraySerializableInterface;
-use AxisCare\ArraySerializableTrait;
-use AxisCare\AuditableInterface;
-use AxisCare\AuditableTrait;
 use Carbon\Carbon;
 
 /**
@@ -13,31 +9,16 @@ use Carbon\Carbon;
  * @package AxisCare\Model
  * @codeCoverageIgnore
  */
-class Rental implements
-    ArraySerializableInterface,
-    AuditableInterface
+class Rental extends AbstractModel
 {
-    use ArraySerializableTrait,
-        AuditableTrait;
+    /** @var Movie */
+    protected $movie;
 
-    /** @var Movie  */
-    private $movie;
-
-    /** @var int  */
-    private $daysRented;
+    /** @var int */
+    protected $daysRented;
 
     /** @var Carbon */
-    private $firstDay;
-
-    public function __construct($data = null)
-    {
-        $this->created = Carbon::now();
-        $this->lastModified = Carbon::now();
-
-        if (is_array($data)) {
-            $this->fromArray($data);
-        }
-    }
+    protected $firstDay;
 
     /**
      * @return int

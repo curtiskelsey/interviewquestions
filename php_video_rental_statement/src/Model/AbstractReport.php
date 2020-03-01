@@ -9,7 +9,8 @@ use AxisCare\ReportInterface;
  * Class AbstractReport
  * @package AxisCare\Model
  */
-abstract class AbstractReport implements ReportInterface
+abstract class AbstractReport extends AbstractModel implements
+    ReportInterface
 {
     /**
      * @var string
