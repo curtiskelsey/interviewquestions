@@ -1,12 +1,15 @@
 <?php
 
+use AxisCare\Enumerable\MimeType;
 use AxisCare\Model\Customer;
 use AxisCare\Model\Movie;
 use AxisCare\Model\PriceCode;
 use AxisCare\Model\Rental;
+use AxisCare\Option\AxisCareOptions;
 use AxisCare\Service\PriceCodeService;
 use AxisCare\Service\RentalService;
 use AxisCare\Service\StatementService;
+use AxisCare\View\ViewManager;
 
 $autoloader = __DIR__ . '/../vendor/autoload.php';
 
@@ -19,7 +22,9 @@ if (!file_exists($autoloader)) {
 /** @noinspection PhpIncludeInspection */
 require $autoloader;
 
-$format = $_GET['format'] ?? null;
+$acceptHeaderString = $_SERVER['HTTP_ACCEPT'] ?? MimeType::TEXT_PLAIN;
+$options = AxisCareOptions::create();
+$viewManager = new ViewManager($options);
 $priceCodeService = new PriceCodeService();
 $statementService = new StatementService(new RentalService());
 
@@ -66,4 +71,9 @@ $customer = new Customer(
 
 $statement = $statementService->generate($customer);
 
-echo $statementService->render($statement, $format);
+try {
+    echo $viewManager->render($statement, $acceptHeaderString);
+
+} catch (\AxisCare\Exception $exception) {
+    http_response_code(400);
+}

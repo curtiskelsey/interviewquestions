@@ -7,6 +7,8 @@ use AxisCare\Model\Customer;
 use AxisCare\Model\Statement;
 
 /**
+ * Handles the generation of statements
+ *
  * Class StatementService
  * @package AxisCare
  */
@@ -14,31 +16,9 @@ class StatementService
 {
     use RentalServiceAwareTrait;
 
-    public const PLAINTEXT_FORMAT = 'text';
-    public const HTML_FORMAT = 'html';
-
     public function __construct(RentalService $rentalService)
     {
         $this->rentalService = $rentalService;
-    }
-
-    /**
-     * Renders a given statement in the format provided. If no format is provided, it is rendered in plain text
-     *
-     * @param Statement $statement
-     * @param string|null $format
-     * @return string
-     */
-    public function render(Statement $statement, ?string $format = null): string
-    {
-        switch ($format) {
-            case self::HTML_FORMAT:
-                return $this->renderHtml($statement);
-                break;
-            default:
-                return $this->renderPlainText($statement);
-                break;
-        }
     }
 
     /**
@@ -67,7 +47,7 @@ class StatementService
             }
 
             $statement->addLineItem(
-                $rental->getMovie()->getTitle(),
+                $movie->getTitle(),
                 $rentalAmount
             );
 
@@ -75,80 +55,5 @@ class StatementService
         }
 
         return $statement;
-    }
-
-    /**
-     * Given a statement, a plain text rendering of the statement is created and returned
-     *
-     * @param Statement $statement
-     * @return string
-     */
-    public function renderPlainText(Statement $statement): string
-    {
-        $customer = $statement->getCustomer();
-
-        $result = sprintf(
-            "<pre>Rental Record for %s\n",
-            $customer->getName()
-        );
-
-        foreach ($statement->getLineItems() as $text => $value) {
-            $result .= sprintf(
-                "\t%s\t%s\n",
-                $text,
-                number_format($value, 0)
-            );
-        }
-
-        // add footer lines
-        $result .= sprintf(
-            "Amount owed is %s\nYou earned %d frequent renter points</pre>",
-            number_format($statement->getTotal(), 0),
-            $statement->getFrequentRenterPoints()
-        );
-
-        return $result;
-    }
-
-    /**
-     * Given a statement, a HTML rendering of the statement is created and returned
-     *
-     * @param Statement $statement
-     * @return string
-     */
-    private function renderHtml(Statement $statement): string
-    {
-        $customer = $statement->getCustomer();
-
-        $result = '<link rel="stylesheet" href="assets/css/index.css" type="text/css">';
-
-        $result .= sprintf(
-            '<h1 class="header">Rentals for <span class="customer-name">%s</span></h1>',
-            $customer->getName()
-        );
-
-        $result .= '<ul class="rental-list">';
-
-        foreach ($statement->getLineItems() as $text => $value) {
-            $result .= sprintf(
-                '<li class="rental-item">%s: %s</li>',
-                $text,
-                $value
-            );
-        }
-
-        $result .= '</ul>';
-
-        $result .= sprintf(
-            '<p>Amount owed is <span class="total">%s</span></p>',
-            $statement->getTotal()
-        );
-
-        $result .= sprintf(
-            '<p>You earned <span class="total">%s</span> frequent renter points</p>',
-            $statement->getFrequentRenterPoints()
-        );
-
-        return $result;
     }
 }
