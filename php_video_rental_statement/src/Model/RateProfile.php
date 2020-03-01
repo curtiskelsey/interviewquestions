@@ -40,18 +40,18 @@ class RateProfile extends AbstractModel
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getBaseRate(): int
+    public function getBaseRate(): float
     {
         return $this->baseRate;
     }
 
     /**
-     * @param int $baseRate
+     * @param float $baseRate
      * @return $this
      */
-    public function setBaseRate(int $baseRate): self
+    public function setBaseRate(float $baseRate): self
     {
         $this->baseRate = $baseRate;
         return $this;
