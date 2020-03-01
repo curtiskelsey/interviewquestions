@@ -44,7 +44,7 @@ $customer = new Customer(
                     'movie' => new Movie(
                         [
                             'title' => 'Prognosis Negative',
-                            'movieClassification' => $movieClassificationService->fetch(MovieClassification::REGULAR),
+                            'movieClassification' => $movieClassificationService->fetch(MovieClassification::NEW_RELEASE),
                         ]
                     ),
                     'daysRented' => 3
@@ -55,7 +55,7 @@ $customer = new Customer(
                     'movie' => new Movie(
                         [
                             'title' => 'The Pain and the Yearning',
-                            'movieClassification' => $movieClassificationService->fetch(MovieClassification::NEW_RELEASE),
+                            'movieClassification' => $movieClassificationService->fetch(MovieClassification::REGULAR),
                         ]
                     ),
                     'daysRented' => 1
