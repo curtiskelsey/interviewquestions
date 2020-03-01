@@ -28,7 +28,8 @@ class StatementRendererTest extends TestCase
 
         $statement = new Statement(
             [
-                'customer' => new Customer(['name' => 'test'])
+                'customer' => new Customer(['name' => 'test']),
+                'heading' => 'test',
             ]
         );
 
@@ -51,7 +52,8 @@ class StatementRendererTest extends TestCase
 
         $statement = new Statement(
             [
-                'customer' => new Customer(['name' => 'test'])
+                'customer' => new Customer(['name' => 'test']),
+                'heading' => 'test',
             ]
         );
 
