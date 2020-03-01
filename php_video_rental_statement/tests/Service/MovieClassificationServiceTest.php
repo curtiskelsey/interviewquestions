@@ -4,6 +4,8 @@
 namespace AxisCareTest;
 
 use AxisCare\Model\MovieClassification;
+use AxisCare\Model\PointsProfile;
+use AxisCare\Model\RateProfile;
 use AxisCare\Option\AxisCareOptions;
 use AxisCare\Service\MovieClassificationService;
 use AxisCare\Service\PointsProfileService;
@@ -29,6 +31,8 @@ class MovieClassificationServiceTest extends TestCase
 
         foreach ($movieClassifications as $movieClassification) {
             $this->assertInstanceOf(MovieClassification::class, $movieClassification);
+            $this->assertInstanceOf(RateProfile::class, $movieClassification->getRateProfile());
+            $this->assertInstanceOf(PointsProfile::class, $movieClassification->getPointsProfile());
         }
     }
 
@@ -44,5 +48,7 @@ class MovieClassificationServiceTest extends TestCase
         $movieClassification = $service->fetch(1);
 
         $this->assertInstanceOf(MovieClassification::class, $movieClassification);
+        $this->assertInstanceOf(RateProfile::class, $movieClassification->getRateProfile());
+        $this->assertInstanceOf(PointsProfile::class, $movieClassification->getPointsProfile());
     }
 }

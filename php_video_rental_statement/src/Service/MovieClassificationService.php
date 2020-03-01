@@ -43,7 +43,7 @@ class MovieClassificationService extends AbstractDataProvider
             }
 
             if (isset($movieClassification['rateProfile'])) {
-                $movieClassification['rateProfile'] = $this->getPointsProfileService()->fetch(
+                $movieClassification['rateProfile'] = $this->getRateProfileService()->fetch(
                     $movieClassification['rateProfile']
                 );
             }
