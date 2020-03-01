@@ -19,6 +19,63 @@ class AxisCareOptions implements ArraySerializableInterface
 {
     use ArraySerializableTrait;
 
+    private $movieClassifications = [
+        [
+            'id' => 0,
+            'name' => 'Regular',
+            'pointsProfile' => 1,
+            'rateProfile' => 1,
+        ],
+        [
+            'id' => 1,
+            'name' => 'New Release',
+            'pointsProfile' => 2,
+            'rateProfile' => 2,
+        ],
+        [
+            'id' => 1,
+            'name' => 'Childrens',
+            'pointsProfile' => 2,
+            'rateProfile' => 3,
+        ]
+    ];
+
+    private $pointsProfiles = [
+        [
+            'id' => 1,
+            'basePoints' => 1,
+            'bonusPoints' => 0,
+            'bonusPointsThreshold' => 1,
+        ],
+        [
+            'id' => 2,
+            'basePoints' => 1,
+            'bonusPoints' => 1,
+            'bonusPointsThreshold' => 1,
+        ],
+    ];
+
+    private $rateProfiles = [
+        [
+            'id' => 1,
+            'baseRate' => 2,
+            'rate' => 1.5,
+            'rateThreshold' => 2,
+        ],
+        [
+            'id' => 2,
+            'baseRate' => 0,
+            'rate' => 3,
+            'rateThreshold' => 0,
+        ],
+        [
+            'id' => 3,
+            'baseRate' => 1.5,
+            'rate' => 1.5,
+            'rateThreshold' => 3,
+        ],
+    ];
+
     private $priceCodes = [
         [
             'id' => 0,
@@ -110,6 +167,60 @@ class AxisCareOptions implements ArraySerializableInterface
     public function setPriceCodes(array $priceCodes): self
     {
         $this->priceCodes = $priceCodes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMovieClassifications(): array
+    {
+        return $this->movieClassifications;
+    }
+
+    /**
+     * @param array $movieClassifications
+     * @return $this
+     */
+    public function setMovieClassifications(array $movieClassifications): self
+    {
+        $this->movieClassifications = $movieClassifications;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPointsProfiles(): array
+    {
+        return $this->pointsProfiles;
+    }
+
+    /**
+     * @param array $pointsProfiles
+     * @return $this
+     */
+    public function setPointsProfiles(array $pointsProfiles): self
+    {
+        $this->pointsProfiles = $pointsProfiles;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRateProfiles(): array
+    {
+        return $this->rateProfiles;
+    }
+
+    /**
+     * @param array $rateProfiles
+     * @return $this
+     */
+    public function setRateProfiles(array $rateProfiles): self
+    {
+        $this->rateProfiles = $rateProfiles;
         return $this;
     }
 }
